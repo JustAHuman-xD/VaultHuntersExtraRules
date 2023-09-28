@@ -1,4 +1,4 @@
-<a href="https://www.curseforge.com/minecraft/mc-mods/vault-hunters-extra-rules"><img src="http://cf.way2muchnoise.eu/896210.svg" alt="CF"></a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/vault-hunters-extra-game-rules"><img src="http://cf.way2muchnoise.eu/917565.svg" alt="CF"></a>
 
 # Vault Hunters Extra Rules
 
