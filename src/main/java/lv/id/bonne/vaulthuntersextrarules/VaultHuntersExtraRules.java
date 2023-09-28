@@ -33,7 +33,7 @@ public class VaultHuntersExtraRules
     @SubscribeEvent
     public static void setupCommon(FMLCommonSetupEvent event)
     {
-        COIN_LOOT = register("vaultExtraCoinLoot", GameRules.Category.MISC, VaultLoot.GameRuleValue.create(VaultLoot.NORMAL));
+        COIN_LOOT = register("vaultExtraCoinDrops", GameRules.Category.MISC, VaultLoot.GameRuleValue.create(VaultLoot.NORMAL));
         COPIOUSLY_LOOT = register("vaultExtraCopiouslyDropModifier", GameRules.Category.MISC, VaultLoot.GameRuleValue.create(VaultLoot.NORMAL));
     }
 
