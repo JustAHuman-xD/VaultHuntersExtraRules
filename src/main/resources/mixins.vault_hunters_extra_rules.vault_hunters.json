@@ -1,0 +1,12 @@
+{
+  "package": "lv.id.bonne.vaulthuntersextrarules.mixin",
+  "required": true,
+  "refmap": "mixins.vault_hunters_extra_rules.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinCoinPilesTileEntity",
+    "MixinVaultBlockOre"
+  ],
+  "client": [],
+  "minVersion": "0.8"
+}
