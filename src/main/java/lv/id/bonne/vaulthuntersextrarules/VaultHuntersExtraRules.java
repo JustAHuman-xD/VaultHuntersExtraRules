@@ -2,6 +2,7 @@ package lv.id.bonne.vaulthuntersextrarules;
 
 
 import iskallia.vault.world.VaultLoot;
+import lv.id.bonne.vaulthuntersextrarules.gamerule.VaultExperienceRule;
 import net.minecraft.world.level.GameRules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,8 +34,19 @@ public class VaultHuntersExtraRules
     @SubscribeEvent
     public static void setupCommon(FMLCommonSetupEvent event)
     {
-        COIN_LOOT = register("vaultExtraCoinDrops", GameRules.Category.MISC, VaultLoot.GameRuleValue.create(VaultLoot.NORMAL));
-        COPIOUSLY_LOOT = register("vaultExtraCopiouslyDropModifier", GameRules.Category.MISC, VaultLoot.GameRuleValue.create(VaultLoot.NORMAL));
+        COIN_LOOT = register("vaultExtraCoinDrops",
+            GameRules.Category.MISC,
+            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL));
+        COPIOUSLY_DROP = register("vaultExtraCopiouslyDropModifier",
+            GameRules.Category.MISC,
+            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL));
+
+        BONUS_XP = register("vaultExtraBonusExperienceModifier",
+            GameRules.Category.MISC,
+            VaultExperienceRule.GameRuleValue.create(VaultExperienceRule.NORMAL));
+        COMPLETION_XP = register("vaultExtraCompletionExperienceModifier",
+            GameRules.Category.MISC,
+            VaultExperienceRule.GameRuleValue.create(VaultExperienceRule.NORMAL));
     }
 
 
@@ -58,7 +70,17 @@ public class VaultHuntersExtraRules
     public static GameRules.Key<VaultLoot.GameRuleValue> COIN_LOOT;
 
     /**
-     * The Copiously Loot GameRule.
+     * The Copiously Drop GameRule.
      */
-    public static GameRules.Key<VaultLoot.GameRuleValue> COPIOUSLY_LOOT;
+    public static GameRules.Key<VaultLoot.GameRuleValue> COPIOUSLY_DROP;
+
+    /**
+     * The Vault Bonus Experience GameRule.
+     */
+    public static GameRules.Key<VaultExperienceRule.GameRuleValue> BONUS_XP;
+
+    /**
+     * The Vault Completion Experience GameRule.
+     */
+    public static GameRules.Key<VaultExperienceRule.GameRuleValue> COMPLETION_XP;
 }

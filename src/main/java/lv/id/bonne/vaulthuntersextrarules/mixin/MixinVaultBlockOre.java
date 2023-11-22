@@ -44,7 +44,7 @@ public class MixinVaultBlockOre
         BlockPos pos)
     {
         int modifier = player.getLevel().getGameRules().
-            getRule(VaultHuntersExtraRules.COPIOUSLY_LOOT).get().getMultiplier();
+            getRule(VaultHuntersExtraRules.COPIOUSLY_DROP).get().getMultiplier();
 
         // Do something only if there is a point to do something.
         if (modifier > 1)
