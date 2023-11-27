@@ -47,6 +47,10 @@ public class VaultHuntersExtraRules
         COMPLETION_XP = register("vaultExtraCompletionExperienceModifier",
             GameRules.Category.MISC,
             VaultExperienceRule.GameRuleValue.create(VaultExperienceRule.NORMAL));
+
+        REUSE_PEDESTALS = register("vaultExtraReusePedestals",
+            GameRules.Category.MISC,
+            GameRules.BooleanValue.create(false));
     }
 
 
@@ -83,4 +87,9 @@ public class VaultHuntersExtraRules
      * The Vault Completion Experience GameRule.
      */
     public static GameRules.Key<VaultExperienceRule.GameRuleValue> COMPLETION_XP;
+
+    /**
+     * The GameRule that allows users to reuse cake pedestals and tic tac obelisks.
+     */
+    public static GameRules.Key<GameRules.BooleanValue> REUSE_PEDESTALS;
 }

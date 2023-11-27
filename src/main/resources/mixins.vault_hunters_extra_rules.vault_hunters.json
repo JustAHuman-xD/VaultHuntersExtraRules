@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "MixinCoinPilesTileEntity",
+    "MixinCrakePedestalObjective",
+    "MixinLodestoneObjective",
     "MixinStatsCollector",
     "MixinVaultBlockOre"
   ],
