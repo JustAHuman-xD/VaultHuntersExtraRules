@@ -6,6 +6,7 @@
   "mixins": [
     "MixinCoinPilesTileEntity",
     "MixinCrakePedestalObjective",
+    "MixinGodAltarTileEntity",
     "MixinLodestoneObjective",
     "MixinStatsCollector",
     "MixinVaultBlockOre"
