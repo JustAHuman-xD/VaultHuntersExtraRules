@@ -51,7 +51,6 @@ public class VaultHuntersExtraRules
         REUSE_PEDESTALS = register("vaultExtraReusePedestals",
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false));
-
         SKIP_ALTAR_RETURNING = register("vaultExtraSkipAltarReturning",
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false));
