@@ -7,18 +7,19 @@
 package lv.id.bonne.vaulthuntersextrarules.mixin;
 
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import iskallia.vault.block.VaultOreBlock;
 import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -42,8 +43,8 @@ public class MixinVaultBlockOre
         LootContext.Builder builder)
     {
         // Get modifier value
-        int modifier = builder.getLevel().getGameRules().
-            getRule(VaultHuntersExtraRules.COPIOUSLY_DROP).get().getMultiplier();
+        int modifier = GameRuleHelper.
+            getRule(VaultHuntersExtraRules.COPIOUSLY_DROP, builder.getLevel()).get().getMultiplier();
 
         // Get starting list of all items.
         List<ItemStack> originalList = new ArrayList<>(originalInstance);

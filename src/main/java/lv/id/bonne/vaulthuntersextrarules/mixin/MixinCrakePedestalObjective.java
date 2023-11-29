@@ -7,18 +7,18 @@
 package lv.id.bonne.vaulthuntersextrarules.mixin;
 
 
+import iskallia.vault.core.event.common.BlockUseEvent;
+import iskallia.vault.core.vault.Vault;
+import iskallia.vault.core.vault.objective.CrakePedestalObjective;
+import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import iskallia.vault.core.event.common.BlockUseEvent;
-import iskallia.vault.core.vault.Vault;
-import iskallia.vault.core.vault.objective.CrakePedestalObjective;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import net.minecraft.world.level.Level;
 
 
 /**
@@ -38,6 +38,7 @@ public class MixinCrakePedestalObjective
         at = @At(value = "HEAD"))
     public void injectVariableAssign(Vault vault, BlockUseEvent.Data data, CallbackInfo ci)
     {
+        vault_hunters_extra_rules$vault = vault;
         vault_hunters_extra_rules$world = data.getWorld();
     }
 
@@ -53,9 +54,8 @@ public class MixinCrakePedestalObjective
         index = 1)
     private Comparable<?> addReusePedestal(Comparable<?> par2)
     {
-        return vault_hunters_extra_rules$world == null ||
-            !vault_hunters_extra_rules$world.getGameRules().
-                getRule(VaultHuntersExtraRules.REUSE_PEDESTALS).
+        return vault_hunters_extra_rules$world == null || vault_hunters_extra_rules$vault == null ||
+            !GameRuleHelper.getRule(VaultHuntersExtraRules.REUSE_PEDESTALS, vault_hunters_extra_rules$world, vault_hunters_extra_rules$vault).
                 get();
     }
 
@@ -71,6 +71,7 @@ public class MixinCrakePedestalObjective
     public void injectVariableRemove(Vault vault, BlockUseEvent.Data data, CallbackInfo ci)
     {
         vault_hunters_extra_rules$world = null;
+        vault_hunters_extra_rules$vault = null;
     }
 
 
@@ -79,4 +80,7 @@ public class MixinCrakePedestalObjective
      */
     @Unique
     private static Level vault_hunters_extra_rules$world;
+
+    @Unique
+    private static Vault vault_hunters_extra_rules$vault;
 }

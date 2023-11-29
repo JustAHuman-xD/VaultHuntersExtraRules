@@ -7,18 +7,17 @@
 package lv.id.bonne.vaulthuntersextrarules.mixin;
 
 
+import iskallia.vault.block.base.GodAltarTileEntity;
+import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import iskallia.vault.block.base.GodAltarTileEntity;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 
 
 /**
@@ -39,6 +38,7 @@ public class MixinGodAltarTileEntity
     public void injectVariableAssign(ServerLevel world, ServerPlayer player, CallbackInfo ci)
     {
         vault_hunters_extra_rules$world = world;
+        vault_hunters_extra_rules$player = player;
     }
 
 
@@ -54,10 +54,10 @@ public class MixinGodAltarTileEntity
     private boolean skipAltarReturning(boolean requiresDraining)
     {
         return requiresDraining &&
-            (vault_hunters_extra_rules$world == null ||
-                !vault_hunters_extra_rules$world.getGameRules().
-                    getRule(VaultHuntersExtraRules.SKIP_ALTAR_RETURNING).
-                    get());
+            (vault_hunters_extra_rules$world == null || vault_hunters_extra_rules$player == null ||
+                !GameRuleHelper.getRule(VaultHuntersExtraRules.SKIP_ALTAR_RETURNING,
+                        vault_hunters_extra_rules$world,
+                        vault_hunters_extra_rules$player).get());
     }
 
 
@@ -72,6 +72,7 @@ public class MixinGodAltarTileEntity
     public void injectVariableRemove(ServerLevel world, ServerPlayer player, CallbackInfo ci)
     {
         vault_hunters_extra_rules$world = null;
+        vault_hunters_extra_rules$player = null;
     }
 
 
@@ -79,5 +80,8 @@ public class MixinGodAltarTileEntity
      * The world variable.
      */
     @Unique
-    private static Level vault_hunters_extra_rules$world;
+    private static ServerLevel vault_hunters_extra_rules$world;
+
+    @Unique
+    private static ServerPlayer vault_hunters_extra_rules$player;
 }
