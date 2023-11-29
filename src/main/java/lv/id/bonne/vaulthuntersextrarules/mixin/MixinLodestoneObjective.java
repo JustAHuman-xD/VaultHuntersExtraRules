@@ -7,19 +7,19 @@
 package lv.id.bonne.vaulthuntersextrarules.mixin;
 
 
+import iskallia.vault.core.event.common.BlockUseEvent;
+import iskallia.vault.core.vault.Vault;
+import iskallia.vault.core.vault.objective.LodestoneObjective;
+import iskallia.vault.core.world.storage.VirtualWorld;
+import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import iskallia.vault.core.event.common.BlockUseEvent;
-import iskallia.vault.core.vault.Vault;
-import iskallia.vault.core.vault.objective.LodestoneObjective;
-import iskallia.vault.core.world.storage.VirtualWorld;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import net.minecraft.world.level.Level;
 
 
 /**
@@ -40,6 +40,7 @@ public class MixinLodestoneObjective
         at = @At(value = "HEAD"))
     public void injectVariableAssign(Vault vault, VirtualWorld world, BlockUseEvent.Data data, CallbackInfo ci)
     {
+        vault_hunters_extra_rules$vault = vault;
         vault_hunters_extra_rules$world = data.getWorld();
     }
 
@@ -55,9 +56,9 @@ public class MixinLodestoneObjective
         index = 0)
     private boolean addReuseLodestone(boolean consumed)
     {
-        return vault_hunters_extra_rules$world == null ||
-            !vault_hunters_extra_rules$world.getGameRules().
-                getRule(VaultHuntersExtraRules.REUSE_PEDESTALS).
+        return vault_hunters_extra_rules$world == null || vault_hunters_extra_rules$vault == null ||
+            !GameRuleHelper.
+                getRule(VaultHuntersExtraRules.REUSE_PEDESTALS, vault_hunters_extra_rules$world, vault_hunters_extra_rules$vault).
                 get();
     }
 
@@ -73,6 +74,7 @@ public class MixinLodestoneObjective
         at = @At(value = "RETURN"))
     public void injectVariableRemove(Vault vault, VirtualWorld world, BlockUseEvent.Data data, CallbackInfo ci)
     {
+        vault_hunters_extra_rules$vault = null;
         vault_hunters_extra_rules$world = null;
     }
 
@@ -81,4 +83,10 @@ public class MixinLodestoneObjective
      */
     @Unique
     private static Level vault_hunters_extra_rules$world;
+
+    /**
+     * The vault variable.
+     */
+    @Unique
+    private static Vault vault_hunters_extra_rules$vault;
 }
