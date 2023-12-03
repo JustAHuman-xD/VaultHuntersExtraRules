@@ -9,7 +9,6 @@ package lv.id.bonne.vaulthuntersextrarules.mixin;
 
 import iskallia.vault.core.event.common.ListenerJoinEvent;
 import iskallia.vault.core.vault.Vault;
-import iskallia.vault.core.vault.stat.StatCollector;
 import iskallia.vault.core.vault.stat.StatsCollector;
 import iskallia.vault.core.world.storage.VirtualWorld;
 import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
@@ -21,12 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import javax.xml.crypto.Data;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 
 /**

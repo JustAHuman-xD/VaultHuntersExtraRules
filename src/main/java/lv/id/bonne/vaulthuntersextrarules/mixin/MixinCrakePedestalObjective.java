@@ -13,7 +13,6 @@ import iskallia.vault.core.vault.objective.CrakePedestalObjective;
 import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
 import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
