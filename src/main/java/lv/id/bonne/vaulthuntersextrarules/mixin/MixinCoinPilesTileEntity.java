@@ -40,6 +40,6 @@ public class MixinCoinPilesTileEntity
         LootTableKey key,
         LootTableGenerator generator)
     {
-        generator.itemQuantity = GameRuleHelper.getRule(VaultHuntersExtraRules.COIN_LOOT, player.getLevel(), player).get().getMultiplier() - 1;
+        generator.itemQuantity = GameRuleHelper.getRule(VaultHuntersExtraRules.COIN_LOOT, player).get().getMultiplier() - 1;
     }
 }

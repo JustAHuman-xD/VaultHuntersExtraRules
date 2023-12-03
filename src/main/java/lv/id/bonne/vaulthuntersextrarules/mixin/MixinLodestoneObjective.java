@@ -13,6 +13,7 @@ import iskallia.vault.core.vault.objective.LodestoneObjective;
 import iskallia.vault.core.world.storage.VirtualWorld;
 import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
 import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -40,8 +41,7 @@ public class MixinLodestoneObjective
         at = @At(value = "HEAD"))
     public void injectVariableAssign(Vault vault, VirtualWorld world, BlockUseEvent.Data data, CallbackInfo ci)
     {
-        vault_hunters_extra_rules$vault = vault;
-        vault_hunters_extra_rules$world = data.getWorld();
+        vault_hunters_extra_rules$player = data.getPlayer();
     }
 
 
@@ -56,9 +56,9 @@ public class MixinLodestoneObjective
         index = 0)
     private boolean addReuseLodestone(boolean consumed)
     {
-        return vault_hunters_extra_rules$world == null || vault_hunters_extra_rules$vault == null ||
+        return vault_hunters_extra_rules$player == null ||
             !GameRuleHelper.
-                getRule(VaultHuntersExtraRules.REUSE_PEDESTALS, vault_hunters_extra_rules$world, vault_hunters_extra_rules$vault).
+                getRule(VaultHuntersExtraRules.REUSE_PEDESTALS, vault_hunters_extra_rules$player).
                 get();
     }
 
@@ -74,19 +74,12 @@ public class MixinLodestoneObjective
         at = @At(value = "RETURN"))
     public void injectVariableRemove(Vault vault, VirtualWorld world, BlockUseEvent.Data data, CallbackInfo ci)
     {
-        vault_hunters_extra_rules$vault = null;
-        vault_hunters_extra_rules$world = null;
+        vault_hunters_extra_rules$player = null;
     }
 
     /**
-     * The world variable.
+     * The player variable.
      */
     @Unique
-    private static Level vault_hunters_extra_rules$world;
-
-    /**
-     * The vault variable.
-     */
-    @Unique
-    private static Vault vault_hunters_extra_rules$vault;
+    private static Player vault_hunters_extra_rules$player;
 }

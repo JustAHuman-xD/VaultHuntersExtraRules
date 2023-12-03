@@ -37,7 +37,6 @@ public class MixinGodAltarTileEntity
         at = @At(value = "HEAD"))
     public void injectVariableAssign(ServerLevel world, ServerPlayer player, CallbackInfo ci)
     {
-        vault_hunters_extra_rules$world = world;
         vault_hunters_extra_rules$player = player;
     }
 
@@ -54,9 +53,8 @@ public class MixinGodAltarTileEntity
     private boolean skipAltarReturning(boolean requiresDraining)
     {
         return requiresDraining &&
-            (vault_hunters_extra_rules$world == null || vault_hunters_extra_rules$player == null ||
+            (vault_hunters_extra_rules$player == null ||
                 !GameRuleHelper.getRule(VaultHuntersExtraRules.SKIP_ALTAR_RETURNING,
-                        vault_hunters_extra_rules$world,
                         vault_hunters_extra_rules$player).get());
     }
 
@@ -71,7 +69,6 @@ public class MixinGodAltarTileEntity
         at = @At(value = "RETURN"))
     public void injectVariableRemove(ServerLevel world, ServerPlayer player, CallbackInfo ci)
     {
-        vault_hunters_extra_rules$world = null;
         vault_hunters_extra_rules$player = null;
     }
 
@@ -80,8 +77,6 @@ public class MixinGodAltarTileEntity
      * The world variable.
      */
     @Unique
-    private static ServerLevel vault_hunters_extra_rules$world;
-
-    @Unique
     private static ServerPlayer vault_hunters_extra_rules$player;
+
 }

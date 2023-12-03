@@ -12,6 +12,7 @@ import iskallia.vault.core.vault.Vault;
 import iskallia.vault.core.vault.objective.CrakePedestalObjective;
 import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
 import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -38,8 +39,7 @@ public class MixinCrakePedestalObjective
         at = @At(value = "HEAD"))
     public void injectVariableAssign(Vault vault, BlockUseEvent.Data data, CallbackInfo ci)
     {
-        vault_hunters_extra_rules$vault = vault;
-        vault_hunters_extra_rules$world = data.getWorld();
+        vault_hunters_extra_rules$player = data.getPlayer();
     }
 
 
@@ -54,14 +54,14 @@ public class MixinCrakePedestalObjective
         index = 1)
     private Comparable<?> addReusePedestal(Comparable<?> par2)
     {
-        return vault_hunters_extra_rules$world == null || vault_hunters_extra_rules$vault == null ||
-            !GameRuleHelper.getRule(VaultHuntersExtraRules.REUSE_PEDESTALS, vault_hunters_extra_rules$world, vault_hunters_extra_rules$vault).
+        return vault_hunters_extra_rules$player == null ||
+            !GameRuleHelper.getRule(VaultHuntersExtraRules.REUSE_PEDESTALS, vault_hunters_extra_rules$player).
                 get();
     }
 
 
     /**
-     * Removes the vault_hunters_extra_rules$world value.
+     * Removes the vault_hunters_extra_rules$player value.
      * @param vault The vault.
      * @param data The block use event data.
      * @param ci Callback info.
@@ -70,17 +70,13 @@ public class MixinCrakePedestalObjective
         at = @At(value = "RETURN"))
     public void injectVariableRemove(Vault vault, BlockUseEvent.Data data, CallbackInfo ci)
     {
-        vault_hunters_extra_rules$world = null;
-        vault_hunters_extra_rules$vault = null;
+        vault_hunters_extra_rules$player = null;
     }
 
 
     /**
-     * The world variable.
+     * The player variable.
      */
     @Unique
-    private static Level vault_hunters_extra_rules$world;
-
-    @Unique
-    private static Vault vault_hunters_extra_rules$vault;
+    private static Player vault_hunters_extra_rules$player;
 }

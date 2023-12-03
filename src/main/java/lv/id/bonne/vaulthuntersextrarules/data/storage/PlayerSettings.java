@@ -1,8 +1,10 @@
 package lv.id.bonne.vaulthuntersextrarules.data.storage;
 
+import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
 import lv.id.bonne.vaulthuntersextrarules.mixin.InvokerGameRulesValue;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.saveddata.SavedData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -11,28 +13,16 @@ import java.util.Map;
 import java.util.Optional;
 
 public class PlayerSettings {
-    private static final Map<String, GameRules.Key<?>> idToKey = new HashMap<>();
-    private static final Map<GameRules.Key<?>, GameRules.Type<?>> keyToType = new HashMap<>();
     private final Map<GameRules.Key<?>, GameRules.Value<?>> gameRules = new HashMap<>();
+    private final SavedData parent;
 
-    public PlayerSettings() {
+    public PlayerSettings(SavedData parent) {
+        this.parent = parent;
     }
 
-    public PlayerSettings(CompoundTag tag) {
+    public PlayerSettings(SavedData parent, CompoundTag tag) {
+        this.parent = parent;
         this.deserialize(tag);
-    }
-
-    public static void prepare() {
-        idToKey.clear();
-        keyToType.clear();
-
-        GameRules.visitGameRuleTypes(new GameRules.GameRuleTypeVisitor() {
-            @Override
-            public <T extends GameRules.Value<T>> void visit(GameRules.Key<T> key, GameRules.Type<T> type) {
-                idToKey.put(key.getId(), key);
-                keyToType.put(key, type);
-            }
-        });
     }
 
     public <T extends GameRules.Value<T>> Optional<T> get(GameRules.Key<T> ruleKey) {
@@ -46,11 +36,13 @@ public class PlayerSettings {
 
     @Nullable
     public <T extends GameRules.Value<T>> T put(GameRules.Key<T> ruleKey, GameRules.Value<T> ruleValue) {
+        parent.setDirty();
         return (T) gameRules.put(ruleKey, ruleValue);
     }
 
     @Nullable
     public <T extends GameRules.Value<T>> T remove(GameRules.Key<T> ruleKey) {
+        parent.setDirty();
         return (T) gameRules.remove(ruleKey);
     }
 
@@ -65,9 +57,9 @@ public class PlayerSettings {
 
     public void deserialize(CompoundTag tag) {
         tag.getAllKeys().forEach(gameRuleKeyId -> {
-            if (idToKey.containsKey(gameRuleKeyId)) {
-                GameRules.Key<?> key = idToKey.get(gameRuleKeyId);
-                GameRules.Value<?> value = keyToType.get(key).createRule();
+            if (VaultHuntersExtraRules.gameRuleIdToKey.containsKey(gameRuleKeyId)) {
+                GameRules.Key<?> key = VaultHuntersExtraRules.gameRuleIdToKey.get(gameRuleKeyId);
+                GameRules.Value<?> value = VaultHuntersExtraRules.extraGameRules.get(key).getFirst().createRule();
                 ((InvokerGameRulesValue)value).invokeDeserialize(tag.getString(gameRuleKeyId));
 
                 gameRules.put(key, value);
