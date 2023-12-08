@@ -3,15 +3,15 @@ package lv.id.bonne.vaulthuntersextrarules.gamerule;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.brigadier.context.CommandContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import java.util.Map;
-
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.GameRules;
 import net.minecraftforge.server.command.EnumArgument;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 
 /**

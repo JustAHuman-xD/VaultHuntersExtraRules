@@ -7,16 +7,22 @@
 package lv.id.bonne.vaulthuntersextrarules.mixin;
 
 
+import iskallia.vault.core.event.common.BlockUseEvent;
+import iskallia.vault.core.vault.Vault;
+import iskallia.vault.core.vault.objective.CrakePedestalObjective;
+import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import iskallia.vault.block.CrakePedestalBlock;
 import iskallia.vault.core.event.common.BlockUseEvent;
 import iskallia.vault.core.vault.Vault;
 import iskallia.vault.core.vault.objective.CrakePedestalObjective;
 import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
+
 
 
 /**
@@ -40,7 +46,7 @@ public class MixinCrakePedestalObjective
         BlockUseEvent.Data data,
         CallbackInfo cir)
     {
-        if (data.getWorld().getGameRules().getRule(VaultHuntersExtraRules.REUSE_PEDESTALS).get())
+        if (GameRuleHelper.getRule(VaultHuntersExtraRules.REUSE_PEDESTALS, data.getPlayer()).get())
         {
             data.getWorld().setBlock(data.getPos(), data.getState().setValue(CrakePedestalBlock.CONSUMED, false), 3);
         }
