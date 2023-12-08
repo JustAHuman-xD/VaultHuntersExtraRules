@@ -8,7 +8,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
  * Interface for invoking private/protected methods of GameRules.Value
  */
 @Mixin(GameRules.Value.class)
-public interface InvokerGameRulesValue {
+public interface InvokerGameRulesValue
+{
     @Invoker
     void invokeDeserialize(String str);
 }

@@ -2,7 +2,6 @@ package lv.id.bonne.vaulthuntersextrarules;
 
 
 import com.mojang.datafixers.util.Pair;
-import com.mojang.logging.LogUtils;
 import iskallia.vault.world.VaultLoot;
 import lv.id.bonne.vaulthuntersextrarules.command.ExtraRulesCommand;
 import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
@@ -13,7 +12,6 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +24,6 @@ import java.util.Map;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class VaultHuntersExtraRules
 {
-    public static final Map<String, GameRules.Key<?>> gameRuleIdToKey = new HashMap<>();
-    public static final Map<GameRules.Key<?>, Pair<GameRules.Type<?>, Locality>> extraGameRules = new HashMap<>();
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     /**
      * The main class initialization.
      */
@@ -37,6 +31,7 @@ public class VaultHuntersExtraRules
     {
         MinecraftForge.EVENT_BUS.register(this);
     }
+
 
     /**
      * Initializes custom GameRules.
@@ -71,14 +66,17 @@ public class VaultHuntersExtraRules
                 GameRules.BooleanValue.create(false), Locality.SERVER, false);
     }
 
+
     /**
      * Accessor for fetching the default locality for a gamerule
      * @param ruleKey Gamerule Key
      * @return Gamerule's default locality
      */
-    public static Locality getDefaultLocality(GameRules.Key<?> ruleKey) {
+    public static Locality getDefaultLocality(GameRules.Key<?> ruleKey)
+    {
         return extraGameRules.getOrDefault(ruleKey, new Pair<>(null, Locality.SERVER)).getSecond();
     }
+
 
     /**
      * A simple method that initializes game rule.
@@ -99,6 +97,7 @@ public class VaultHuntersExtraRules
         return key;
     }
 
+
     /**
      * A simple method that initializes game rule.
      * @param name The name of the game rule.
@@ -107,9 +106,14 @@ public class VaultHuntersExtraRules
      * @return The game rule key.
      * @param <T> The type of the game rule.
      */
-    public static <T extends GameRules.Value<T>> GameRules.Key<T> register(String name, GameRules.Category category, GameRules.Type<T> type, Locality locality) {
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> register(String name,
+        GameRules.Category category,
+        GameRules.Type<T> type,
+        Locality locality)
+    {
         return register(name, category, type, locality, true);
     }
+
 
     /**
      * The Coin Loot GameRule.
@@ -147,16 +151,28 @@ public class VaultHuntersExtraRules
     public static GameRules.Key<GameRules.BooleanValue> LOCALIZED_GAMERULES;
 
     /**
+     * Map of game rule id to key.
+     */
+    public static final Map<String, GameRules.Key<?>> gameRuleIdToKey = new HashMap<>();
+
+    /**
+     * Map of game rule id to key.
+     */
+    public static final Map<GameRules.Key<?>, Pair<GameRules.Type<?>, Locality>> extraGameRules = new HashMap<>();
+
+    /**
      * Forge Event Bus
      */
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-    public static class ForgeEvents {
+    public static class ForgeEvents
+    {
         /**
          * Registers the mod's commands
          * @param event The event holding the command dispatcher
          */
         @SubscribeEvent
-        public static void registerCommands(RegisterCommandsEvent event) {
+        public static void registerCommands(RegisterCommandsEvent event)
+        {
             ExtraRulesCommand.register(event.getDispatcher());
         }
     }
