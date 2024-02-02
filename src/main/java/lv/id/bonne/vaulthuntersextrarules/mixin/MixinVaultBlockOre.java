@@ -31,7 +31,7 @@ public class MixinVaultBlockOre
      * @param builder The loot context builder.
      * @param cir Callback info.
      */
-    @Inject(method = "getCopiouslyChance", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "getCopiouslyChance", at = @At("TAIL"), cancellable = true, remap = false)
     private static void increaseCopiouslyDrop(LootContext.Builder builder, CallbackInfoReturnable<Float> cir)
     {
         Player player = null;
