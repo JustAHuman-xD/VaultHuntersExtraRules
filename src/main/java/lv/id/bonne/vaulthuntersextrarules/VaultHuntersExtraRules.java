@@ -57,9 +57,6 @@ public class VaultHuntersExtraRules
         REUSE_PEDESTALS = register("vaultExtraReusePedestals",
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false), Locality.VAULT);
-        SKIP_ALTAR_RETURNING = register("vaultExtraSkipAltarReturning",
-            GameRules.Category.MISC,
-            GameRules.BooleanValue.create(false), Locality.VAULT);
 
         LOCALIZED_GAMERULES = register("vaultExtraLocalizedGameRules",
                 GameRules.Category.MISC,
@@ -139,11 +136,6 @@ public class VaultHuntersExtraRules
      * The GameRule that allows users to reuse cake pedestals and tic tac obelisks.
      */
     public static GameRules.Key<GameRules.BooleanValue> REUSE_PEDESTALS;
-
-    /**
-     * The GameRule that allows users to do not return to god altar after completing its challenge.
-     */
-    public static GameRules.Key<GameRules.BooleanValue> SKIP_ALTAR_RETURNING;
 
     /**
      * The GameRule that allows users to have local customization

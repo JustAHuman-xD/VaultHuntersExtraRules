@@ -31,6 +31,3 @@ This mod works extremely well with "Arcade Mode".
 - vaultExtraReusePedestals (default: false) - whether to allow reusing crake pedestals and lodestones in the vault
   - true - allows reusing crake pedestals and lodestones in the vault
   - false (default) - no change
-- vaultExtraSkipAltarReturning (default: false) - whether to allow skipping the altar returning in the hard+ vaults
-  - true - allows skipping the altar returning in the vault
-  - false (default) - no change

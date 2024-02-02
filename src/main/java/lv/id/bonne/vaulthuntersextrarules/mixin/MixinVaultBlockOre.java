@@ -49,9 +49,8 @@ public class MixinVaultBlockOre
             player = entity;
         }
 
-
         // Get modifier value
-        int modifier = GameRuleHelper.
+        float modifier = GameRuleHelper.
             getRule(VaultHuntersExtraRules.COPIOUSLY_DROP, builder.getLevel(), player).get().getMultiplier();
 
         // Get starting list of all items.

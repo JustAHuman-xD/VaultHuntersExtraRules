@@ -7,7 +7,6 @@
     "InvokerGameRulesValue",
     "MixinCoinPilesTileEntity",
     "MixinCrakePedestalObjective",
-    "MixinGodAltarTileEntity",
     "MixinLodestoneObjective",
     "MixinStatsCollector",
     "MixinVaultBlockOre"
