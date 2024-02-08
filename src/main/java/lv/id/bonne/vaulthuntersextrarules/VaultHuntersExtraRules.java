@@ -3,10 +3,12 @@ package lv.id.bonne.vaulthuntersextrarules;
 
 import com.mojang.datafixers.util.Pair;
 
+import iskallia.vault.init.ModGameRules;
 import iskallia.vault.world.VaultLoot;
 import lv.id.bonne.vaulthuntersextrarules.command.ExtraRulesCommand;
 import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
 import lv.id.bonne.vaulthuntersextrarules.gamerule.VaultExperienceRule;
+import lv.id.bonne.vaulthuntersextrarules.mixin.GameRulesAccessor;
 import net.minecraft.world.level.GameRules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -63,6 +65,14 @@ public class VaultHuntersExtraRules
         LOCALIZED_GAMERULES = register("vaultExtraLocalizedGameRules",
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false), Locality.SERVER, false);
+
+        // Register Vault Hunters rules to locality
+
+        // CRYSTAL_MODE per Player
+        registerLocality(ModGameRules.CRYSTAL_MODE,
+            GameRulesAccessor.getGAME_RULE_TYPES().get(ModGameRules.CRYSTAL_MODE),
+            true,
+            Locality.PLAYER);
     }
 
 
