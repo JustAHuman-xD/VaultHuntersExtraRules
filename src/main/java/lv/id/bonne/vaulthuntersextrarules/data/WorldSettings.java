@@ -115,9 +115,9 @@ public class WorldSettings extends SavedData
                 CompoundTag gameRulesCompound = tag.getCompound("gameRuleLocality");
                 gameRulesCompound.getAllKeys().forEach(keyName ->
                 {
-                    if (VaultHuntersExtraRules.gameRuleIdToKey.containsKey(keyName))
+                    if (VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.containsKey(keyName))
                     {
-                        data.setGameRuleLocality(VaultHuntersExtraRules.gameRuleIdToKey.get(keyName),
+                        data.setGameRuleLocality(VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.get(keyName),
                             Locality.valueOf(gameRulesCompound.getString(keyName)));
                     }
                 });

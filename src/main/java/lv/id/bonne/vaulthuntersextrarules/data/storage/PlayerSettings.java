@@ -120,10 +120,10 @@ public class PlayerSettings
     {
         tag.getAllKeys().forEach(gameRuleKeyId ->
         {
-            if (VaultHuntersExtraRules.gameRuleIdToKey.containsKey(gameRuleKeyId))
+            if (VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.containsKey(gameRuleKeyId))
             {
-                GameRules.Key<?> key = VaultHuntersExtraRules.gameRuleIdToKey.get(gameRuleKeyId);
-                GameRules.Value<?> value = VaultHuntersExtraRules.extraGameRules.get(key).getFirst().createRule();
+                GameRules.Key<?> key = VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.get(gameRuleKeyId);
+                GameRules.Value<?> value = VaultHuntersExtraRules.EXTRA_GAME_RULES.get(key).getFirst().createRule();
                 ((InvokerGameRulesValue) value).invokeDeserialize(tag.getString(gameRuleKeyId));
 
                 gameRules.put(key, value);

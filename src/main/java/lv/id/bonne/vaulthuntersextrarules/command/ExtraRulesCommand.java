@@ -37,7 +37,7 @@ public class ExtraRulesCommand
         LiteralArgumentBuilder<CommandSourceStack> localAllowed =
             Commands.literal("local_allowed").requires(stack -> stack.hasPermission(2));
 
-        VaultHuntersExtraRules.extraGameRules.forEach((key, pair) ->
+        VaultHuntersExtraRules.EXTRA_GAME_RULES.forEach((key, pair) ->
         {
             GameRules.Type<?> type = pair.getFirst();
 

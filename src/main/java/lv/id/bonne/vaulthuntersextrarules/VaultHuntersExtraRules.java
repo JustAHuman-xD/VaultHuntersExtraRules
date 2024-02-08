@@ -2,6 +2,7 @@ package lv.id.bonne.vaulthuntersextrarules;
 
 
 import com.mojang.datafixers.util.Pair;
+
 import iskallia.vault.world.VaultLoot;
 import lv.id.bonne.vaulthuntersextrarules.command.ExtraRulesCommand;
 import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
@@ -39,13 +40,14 @@ public class VaultHuntersExtraRules
      * @param event the FMLCommonSetupEvent event
      */
     @SubscribeEvent
-    public static void setupCommon(FMLCommonSetupEvent event) {
+    public static void setupCommon(FMLCommonSetupEvent event)
+    {
         COIN_LOOT = register("vaultExtraCoinDrops",
             GameRules.Category.MISC,
-            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL), Locality.SERVER);
+            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL), Locality.VAULT);
         COPIOUSLY_DROP = register("vaultExtraCopiouslyDropModifier",
             GameRules.Category.MISC,
-            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL), Locality.SERVER);
+            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL), Locality.VAULT);
 
         BONUS_XP = register("vaultExtraBonusExperienceModifier",
             GameRules.Category.MISC,
@@ -59,8 +61,8 @@ public class VaultHuntersExtraRules
             GameRules.BooleanValue.create(false), Locality.VAULT);
 
         LOCALIZED_GAMERULES = register("vaultExtraLocalizedGameRules",
-                GameRules.Category.MISC,
-                GameRules.BooleanValue.create(false), Locality.SERVER, false);
+            GameRules.Category.MISC,
+            GameRules.BooleanValue.create(false), Locality.SERVER, false);
     }
 
 
@@ -71,7 +73,7 @@ public class VaultHuntersExtraRules
      */
     public static Locality getDefaultLocality(GameRules.Key<?> ruleKey)
     {
-        return extraGameRules.getOrDefault(ruleKey, new Pair<>(null, Locality.SERVER)).getSecond();
+        return EXTRA_GAME_RULES.getOrDefault(ruleKey, new Pair<>(null, Locality.SERVER)).getSecond();
     }
 
 
@@ -85,13 +87,36 @@ public class VaultHuntersExtraRules
      * @return The game rule key.
      * @param <T> The type of the game rule.
      */
-    public static <T extends GameRules.Value<T>> GameRules.Key<T> register(String name, GameRules.Category category, GameRules.Type<T> type, Locality locality, boolean hasLocality)
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> register(String name,
+        GameRules.Category category,
+        GameRules.Type<T> type,
+        Locality locality,
+        boolean hasLocality)
     {
         GameRules.Key<T> key = GameRules.register(name, category, type);
-        gameRuleIdToKey.put(key.getId(), key);
-        if (hasLocality)
-            extraGameRules.put(key, new Pair<>(type, locality));
+        VaultHuntersExtraRules.registerLocality(key, type, hasLocality, locality);
         return key;
+    }
+
+
+    /**
+     * Registers the locality of the game rule.
+     * @param key The game rule key.
+     * @param type The game rule type.
+     * @param hasLocality Whether the game rule has locality.
+     * @param locality The locality of the game rule.
+     */
+    public static void registerLocality(GameRules.Key<?> key,
+        GameRules.Type<?> type,
+        boolean hasLocality,
+        Locality locality)
+    {
+        GAME_RULE_ID_TO_KEY.put(key.getId(), key);
+
+        if (hasLocality)
+        {
+            EXTRA_GAME_RULES.put(key, new Pair<>(type, locality));
+        }
     }
 
 
@@ -145,12 +170,12 @@ public class VaultHuntersExtraRules
     /**
      * Map of game rule id to key.
      */
-    public static final Map<String, GameRules.Key<?>> gameRuleIdToKey = new HashMap<>();
+    public static final Map<String, GameRules.Key<?>> GAME_RULE_ID_TO_KEY = new HashMap<>();
 
     /**
      * Map of game rule id to key.
      */
-    public static final Map<GameRules.Key<?>, Pair<GameRules.Type<?>, Locality>> extraGameRules = new HashMap<>();
+    public static final Map<GameRules.Key<?>, Pair<GameRules.Type<?>, Locality>> EXTRA_GAME_RULES = new HashMap<>();
 
     /**
      * Forge Event Bus
