@@ -7,10 +7,12 @@ This mod works extremely well with "Arcade Mode".
 
 ## Game Rules
 - vaultExtraCopiouslyDropModifier (default: NORMAL) - the increase of drops from copiously triggering. 
+  - LEGACY: 0.5x - reduces the drop in half
   - NORMAL: 1.0x (default) - no change
   - PLENTY: 2.0x - double the drop from copiously
   - EXTREME: 3.0x - triples the drop from copiously
 - vaultExtraCoinDrops (default: NORMAL) - the chance of increased coin drops from mining in the vault
+  - LEGACY: 0.5x - reduces the drop in half
   - NORMAL: 0.0x (default) - no change
   - PLENTY: 1.0x - increases the coin quantity by 1
   - EXTREME: 2.0x - increases the coin quantity by 2
@@ -31,3 +33,27 @@ This mod works extremely well with "Arcade Mode".
 - vaultExtraReusePedestals (default: false) - whether to allow reusing crake pedestals and lodestones in the vault
   - true - allows reusing crake pedestals and lodestones in the vault
   - false (default) - no change
+- vaultExtraLocalizedGameRules (default: false) - whether to allow localized game rules in the vault
+  - true - allows localized game rules in the vault
+  - false (default) - no change
+
+## Commands
+If `vaultExtraLocalizedGameRules` is set to `true`, you can use the following commands to change the game rules:
+
+- /extra_rules set <rule> <value> - Set the value of a game rule
+- /extra_rules local_allowed <rule> <value> - Set the value of a localized game rule
+
+## Local GameRules 
+Admins can set local levels for each gamerule. It has 3 values:
+- SERVER - the game rule is set by the server. Players cannot set it locally.
+- VAULT - the game rule is set for the vault. Rule value is taken from owner and is set to all players inside that vault.
+- PLAYER - the game rule is set for the player.
+
+GameRules that are targeted by this feature are:
+- vaultExtraCopiouslyDropModifier - (default: VAULT)
+- vaultExtraCoinDrops - (default: VAULT)
+- vaultExtraCompletionExperienceModifier - (default: PLAYER)
+- vaultExtraBonusExperienceModifier - (default: PLAYER)
+- vaultExtraReusePedestals - (default: VAULT)
+- vaultLoot - (default: VAULT)
+- vaultCrystalMode - (default: PLAYER)
