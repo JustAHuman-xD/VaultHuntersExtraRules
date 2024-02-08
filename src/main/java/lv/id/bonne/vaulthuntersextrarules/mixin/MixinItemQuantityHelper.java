@@ -13,10 +13,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import iskallia.vault.init.ModGameRules;
 import iskallia.vault.util.calc.ItemQuantityHelper;
-import iskallia.vault.world.VaultCrystalMode;
 import iskallia.vault.world.VaultLoot;
 import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 
