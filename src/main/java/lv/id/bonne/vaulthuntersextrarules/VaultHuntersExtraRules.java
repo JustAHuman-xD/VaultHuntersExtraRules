@@ -73,6 +73,12 @@ public class VaultHuntersExtraRules
             GameRulesAccessor.getGAME_RULE_TYPES().get(ModGameRules.CRYSTAL_MODE),
             true,
             Locality.PLAYER);
+
+        // LOOT per Vault
+        registerLocality(ModGameRules.LOOT,
+            GameRulesAccessor.getGAME_RULE_TYPES().get(ModGameRules.LOOT),
+            true,
+            Locality.VAULT);
     }
 
 

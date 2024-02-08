@@ -6,6 +6,7 @@
   "mixins": [
     "GameRulesAccessor",
     "InvokerGameRulesValue",
+    "MixinItemQuantityHelper",
     "MixinCoinPilesTileEntity",
     "MixinCrakePedestalObjective",
     "MixinLodestoneObjective",
