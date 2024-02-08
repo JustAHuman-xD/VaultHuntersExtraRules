@@ -4,7 +4,6 @@
   "refmap": "mixins.vault_hunters_extra_rules.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "GameRulesAccessor",
     "InvokerGameRulesValue",
     "MixinItemQuantityHelper",
     "MixinCoinPilesTileEntity",

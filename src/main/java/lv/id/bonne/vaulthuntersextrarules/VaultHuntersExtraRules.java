@@ -2,22 +2,21 @@ package lv.id.bonne.vaulthuntersextrarules;
 
 
 import com.mojang.datafixers.util.Pair;
+import java.util.HashMap;
+import java.util.Map;
 
 import iskallia.vault.init.ModGameRules;
 import iskallia.vault.world.VaultLoot;
 import lv.id.bonne.vaulthuntersextrarules.command.ExtraRulesCommand;
 import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
 import lv.id.bonne.vaulthuntersextrarules.gamerule.VaultExperienceRule;
-import lv.id.bonne.vaulthuntersextrarules.mixin.GameRulesAccessor;
 import net.minecraft.world.level.GameRules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -41,7 +40,7 @@ public class VaultHuntersExtraRules
      *
      * @param event the FMLCommonSetupEvent event
      */
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void setupCommon(FMLCommonSetupEvent event)
     {
         COIN_LOOT = register("vaultExtraCoinDrops",
@@ -68,17 +67,20 @@ public class VaultHuntersExtraRules
 
         // Register Vault Hunters rules to locality
 
-        // CRYSTAL_MODE per Player
-        registerLocality(ModGameRules.CRYSTAL_MODE,
-            GameRulesAccessor.getGAME_RULE_TYPES().get(ModGameRules.CRYSTAL_MODE),
-            true,
-            Locality.PLAYER);
+        event.enqueueWork(() ->
+        {
+            // CRYSTAL_MODE per Player
+            registerLocality(ModGameRules.CRYSTAL_MODE,
+                GameRules.GAME_RULE_TYPES.get(ModGameRules.CRYSTAL_MODE),
+                true,
+                Locality.PLAYER);
 
-        // LOOT per Vault
-        registerLocality(ModGameRules.LOOT,
-            GameRulesAccessor.getGAME_RULE_TYPES().get(ModGameRules.LOOT),
-            true,
-            Locality.VAULT);
+            // LOOT per Vault
+            registerLocality(ModGameRules.LOOT,
+                GameRules.GAME_RULE_TYPES.get(ModGameRules.LOOT),
+                true,
+                Locality.VAULT);
+        });
     }
 
 
