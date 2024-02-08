@@ -108,9 +108,17 @@ public class ExtraRulesCommand
         GameRules.Type<?> ruleType) throws CommandSyntaxException
     {
         CommandSourceStack stack = ctx.getSource();
+
         if (WorldSettings.get(stack.getLevel()).getGameRuleLocality(ruleKey) == Locality.SERVER)
         {
             stack.sendFailure(new TextComponent("Per-player configuration is not enabled for this gamerule!"));
+            return 0;
+        }
+
+        if (!stack.getLevel().getGameRules().getRule(VaultHuntersExtraRules.LOCALIZED_GAMERULES).get())
+        {
+            stack.sendFailure(new TextComponent("vaultExtraLocalizedGameRules is not enabled on this server!"));
+            return 0;
         }
 
         WorldSettings settings = WorldSettings.get(stack.getLevel());
@@ -176,6 +184,13 @@ public class ExtraRulesCommand
         if (WorldSettings.get(stack.getLevel()).getGameRuleLocality(ruleKey) == Locality.SERVER)
         {
             stack.sendFailure(new TextComponent("Per-player configuration is not enabled for this gamerule!"));
+            return 0;
+        }
+
+        if (!stack.getLevel().getGameRules().getRule(VaultHuntersExtraRules.LOCALIZED_GAMERULES).get())
+        {
+            stack.sendFailure(new TextComponent("vaultExtraLocalizedGameRules is not enabled on this server!"));
+            return 0;
         }
 
         WorldSettings settings = WorldSettings.get(stack.getLevel());
