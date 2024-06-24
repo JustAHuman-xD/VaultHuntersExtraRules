@@ -65,7 +65,7 @@ public class VaultHuntersExtraRules
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false), Locality.SERVER, false);
 
-        USE_RESPEC_FLASK = register("vaultExtraAllowFlasksWhilePause",
+        ALLOW_FLASK_USE = register("vaultExtraAllowFlaskUseWhilePause",
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false), Locality.VAULT);
 
@@ -200,7 +200,7 @@ public class VaultHuntersExtraRules
     /**
      * The GameRule that allows users to use Respec Flask in first room.
      */
-    public static GameRules.Key<GameRules.BooleanValue> USE_RESPEC_FLASK;
+    public static GameRules.Key<GameRules.BooleanValue> ALLOW_FLASK_USE;
 
     /**
      * The GameRule that allows users to swap trinkets in first room.

@@ -35,7 +35,7 @@ public class MixinRunner
     private void overwriteBlackList(VirtualWorld world, PlayerInteractEvent event, CallbackInfo ci)
     {
         if (event.getItemStack().getItem() != ModItems.RESPEC_FLASK ||
-            !GameRuleHelper.getRule(VaultHuntersExtraRules.USE_RESPEC_FLASK, event.getPlayer()).get())
+            !GameRuleHelper.getRule(VaultHuntersExtraRules.ALLOW_FLASK_USE, event.getPlayer()).get())
         {
             // fast exit
             return;

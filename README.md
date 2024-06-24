@@ -36,7 +36,7 @@ This mod works extremely well with "Arcade Mode".
 - vaultExtraLocalizedGameRules (default: false) - whether to allow localized game rules in the vault
   - true - allows localized game rules in the vault
   - false (default) - no change
-- vaultExtraAllowFlasksWhilePause (default: false) - whether to allow player use Respec Flask while he is in first room and timer is stopped
+- vaultExtraAllowFlaskUseWhilePause (default: false) - whether to allow player use Respec Flask while he is in first room and timer is stopped
   - true - allows to use Respec Flask in first room while timer in vault is stopped.
   - false (default) - no change
 - vaultExtraAllowTrinketSwapWhilePause (default: false) - whether to allow player swap trinkets while he is in first room and timer is stopped
@@ -66,4 +66,6 @@ GameRules that are targeted by this feature are:
 - vaultExtraReusePedestals - (default: VAULT)
 - vaultLoot - (default: VAULT)
 - vaultCrystalMode - (default: PLAYER)
-- vaultExtraAllowFlasksWhilePause - (default: PLAYER)
+- vaultExtraAllowFlaskUseWhilePause - (default: VAULT)
+- vaultExtraAllowTrinketSwapWhilePause - (default: VAULT)
+- vaultExtraAllowCharmSwapWhilePause - (default: VAULT)
