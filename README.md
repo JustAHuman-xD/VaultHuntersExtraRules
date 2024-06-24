@@ -36,6 +36,10 @@ This mod works extremely well with "Arcade Mode".
 - vaultExtraLocalizedGameRules (default: false) - whether to allow localized game rules in the vault
   - true - allows localized game rules in the vault
   - false (default) - no change
+- vaultExtraAllowFlasksWhilePause (default: false) - whether to allow player use Respec Flask while he is in first room and timer is stopped
+  - true - allows to use Respec Flask in first room while timer in vault is stopped.
+  - false (default) - no change
+
 
 ## Commands
 If `vaultExtraLocalizedGameRules` is set to `true`, you can use the following commands to change the game rules:
@@ -57,3 +61,4 @@ GameRules that are targeted by this feature are:
 - vaultExtraReusePedestals - (default: VAULT)
 - vaultLoot - (default: VAULT)
 - vaultCrystalMode - (default: PLAYER)
+- vaultExtraAllowFlasksWhilePause - (default: PLAYER)

@@ -65,6 +65,10 @@ public class VaultHuntersExtraRules
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false), Locality.SERVER, false);
 
+        USE_RESPEC_FLASK = register("vaultExtraAllowFlasksWhilePause",
+            GameRules.Category.MISC,
+            GameRules.BooleanValue.create(false), Locality.PLAYER);
+
         // Register Vault Hunters rules to locality
 
         event.enqueueWork(() ->
@@ -184,6 +188,11 @@ public class VaultHuntersExtraRules
      * The GameRule that allows users to have local customization
      */
     public static GameRules.Key<GameRules.BooleanValue> LOCALIZED_GAMERULES;
+
+    /**
+     * The GameRule that allows users to use Respec Flask in first room.
+     */
+    public static GameRules.Key<GameRules.BooleanValue> USE_RESPEC_FLASK;
 
     /**
      * Map of game rule id to key.
