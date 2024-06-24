@@ -26,7 +26,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 /**
  * Mixin to allow using RESPEC_FLASK in the first room while timer is stopped.
  */
-@Mixin(Runner.class)
+@Mixin(value = Runner.class, remap = false)
 public class MixinRunner
 {
     @Inject(method = "lambda$initServer$0",
