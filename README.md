@@ -39,8 +39,13 @@ This mod works extremely well with "Arcade Mode".
 - vaultExtraAllowFlasksWhilePause (default: false) - whether to allow player use Respec Flask while he is in first room and timer is stopped
   - true - allows to use Respec Flask in first room while timer in vault is stopped.
   - false (default) - no change
-
-
+- vaultExtraAllowTrinketSwapWhilePause (default: false) - whether to allow player swap trinkets while he is in first room and timer is stopped
+  - true - allows to swap trinkets in first room while timer in vault is stopped.
+  - false (default) - no change
+- vaultExtraAllowCharmSwapWhilePause (default: false) - whether to allow player swap charms while he is in first room and timer is stopped
+  - true - allows to swap charms in first room while timer in vault is stopped.
+  - false (default) - no change
+  
 ## Commands
 If `vaultExtraLocalizedGameRules` is set to `true`, you can use the following commands to change the game rules:
 

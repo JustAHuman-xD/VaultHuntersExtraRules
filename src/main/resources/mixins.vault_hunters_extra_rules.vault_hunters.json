@@ -5,12 +5,14 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "InvokerGameRulesValue",
+    "MixinCharmItem",
     "MixinCoinPilesTileEntity",
     "MixinCrakePedestalObjective",
     "MixinItemQuantityHelper",
     "MixinLodestoneObjective",
     "MixinRunner",
     "MixinStatsCollector",
+    "MixinTrinketItem",
     "MixinVaultAltarIngredientsConfig",
     "MixinVaultBlockOre"
   ],
