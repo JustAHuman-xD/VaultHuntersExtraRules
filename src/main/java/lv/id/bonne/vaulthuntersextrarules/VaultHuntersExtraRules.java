@@ -92,6 +92,12 @@ public class VaultHuntersExtraRules
                 GameRules.GAME_RULE_TYPES.get(ModGameRules.LOOT),
                 true,
                 Locality.VAULT);
+
+            // MODE per Vault
+            registerLocality(ModGameRules.MODE,
+                GameRules.GAME_RULE_TYPES.get(ModGameRules.MODE),
+                true,
+                Locality.SERVER);
         });
     }
 

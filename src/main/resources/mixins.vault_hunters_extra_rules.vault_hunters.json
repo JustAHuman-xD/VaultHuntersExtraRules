@@ -6,11 +6,13 @@
   "mixins": [
     "InvokerGameRulesValue",
     "MixinCharmItem",
+    "MixinClassicListenerLogic",
     "MixinCoinPilesTileEntity",
     "MixinCrakePedestalObjective",
     "MixinItemQuantityHelper",
     "MixinLodestoneObjective",
     "MixinRunner",
+    "MixinSpiritEntity",
     "MixinStatsCollector",
     "MixinTrinketItem",
     "MixinVaultAltarIngredientsConfig",
