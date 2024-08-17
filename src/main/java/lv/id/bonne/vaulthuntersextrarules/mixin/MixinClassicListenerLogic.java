@@ -12,8 +12,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 import iskallia.vault.VaultMod;
 import iskallia.vault.core.random.JavaRandom;
+import iskallia.vault.core.vault.Modifiers;
 import iskallia.vault.core.vault.Vault;
 import iskallia.vault.core.vault.modifier.registry.VaultModifierRegistry;
 import iskallia.vault.core.vault.modifier.spi.VaultModifier;
@@ -21,7 +24,6 @@ import iskallia.vault.core.vault.player.ClassicListenersLogic;
 import iskallia.vault.core.vault.player.Listener;
 import iskallia.vault.core.world.storage.VirtualWorld;
 import iskallia.vault.init.ModGameRules;
-import iskallia.vault.world.VaultMode;
 import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
 import net.minecraft.world.entity.player.Player;
 
@@ -54,7 +56,8 @@ public class MixinClassicListenerLogic
                                     noneMatch(m -> m.getId().equals(VaultMod.id("casual"))))
                                 {
                                     // If there is no casual then add casual
-                                    modifiers.addModifier(modifier, 1, false, JavaRandom.ofNanoTime());
+                                    Modifiers effect = modifiers.addModifier(modifier, 1, false, JavaRandom.ofNanoTime());
+                                    modifier.onListenerAdd(world, vault, effect.getContexts(modifier).findAny().orElse(null), listener);
                                 }
                             });
                         }
@@ -64,8 +67,16 @@ public class MixinClassicListenerLogic
                                     anyMatch(m -> m.getId().equals(VaultMod.id("casual"))))
                                 {
                                     // Remove casual from normal and hardcore vaults.
-                                    modifiers.getEntries().removeIf(entry -> entry.getModifier().isPresent() &&
-                                        entry.getModifier().get().getId().equals(VaultMod.id("casual")));
+                                    Optional<Modifiers.Entry> any = modifiers.getEntries().stream().
+                                        filter(entry -> entry.getModifier().isPresent() &&
+                                            entry.getModifier().get().getId().equals(VaultMod.id("casual"))).
+                                        findAny();
+
+                                    if (any.isPresent())
+                                    {
+                                        modifiers.getEntries().remove(any.get());
+                                        modifier.onListenerRemove(world, vault, any.get().getContext(), listener);
+                                    }
                                 }
                             });
                         }
