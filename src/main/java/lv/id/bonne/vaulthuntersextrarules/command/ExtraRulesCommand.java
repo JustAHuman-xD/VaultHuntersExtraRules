@@ -133,6 +133,13 @@ public class ExtraRulesCommand
             stack.sendSuccess(new TranslatableComponent("commands.gamerule.set",
                 ruleKey.getId(),
                 tOptional.get().toString()), true);
+            // trigger save
+            settings.setDirty();
+
+            VaultHuntersExtraRules.LOGGER.info("GameRule " + ruleKey.getId() + " for " +
+                player.getDisplayName().getString() +
+                " changed.");
+
             return tOptional.get().getCommandResult();
         }
 
@@ -142,6 +149,11 @@ public class ExtraRulesCommand
         playerSettings.put(ruleKey, value);
 
         stack.sendSuccess(new TranslatableComponent("commands.gamerule.set", ruleKey.getId(), value.toString()), true);
+
+        VaultHuntersExtraRules.LOGGER.info("GameRule " + ruleKey.getId() + " for " +
+            player.getDisplayName().getString() +
+            " changed to " + value.serialize());
+
         return value.getCommandResult();
     }
 
@@ -164,6 +176,10 @@ public class ExtraRulesCommand
         PlayerSettings playerSettings = settings.getPlayerSettings(player.getUUID());
 
         playerSettings.remove(ruleKey);
+
+        VaultHuntersExtraRules.LOGGER.info("GameRule " + ruleKey.getId() + " for " +
+            player.getDisplayName().getString() +
+            " changed to default.");
 
         stack.sendSuccess(new TranslatableComponent("commands.gamerule.set", ruleKey.getId(), "default"), true);
         return 0;

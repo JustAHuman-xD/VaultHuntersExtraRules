@@ -2,6 +2,8 @@ package lv.id.bonne.vaulthuntersextrarules;
 
 
 import com.mojang.datafixers.util.Pair;
+import com.mojang.logging.LogUtils;
+import org.slf4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -227,6 +229,11 @@ public class VaultHuntersExtraRules
      * Map of game rule id to key.
      */
     public static final Map<GameRules.Key<?>, Pair<GameRules.Type<?>, Locality>> EXTRA_GAME_RULES = new HashMap<>();
+
+    /**
+     * The logger for this mod.
+     */
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     /**
      * Forge Event Bus
