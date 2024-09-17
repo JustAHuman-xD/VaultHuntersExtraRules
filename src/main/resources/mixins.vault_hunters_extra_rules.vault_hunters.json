@@ -7,17 +7,20 @@
     "InvokerGameRulesValue",
     "MixinCharmItem",
     "MixinClassicListenerLogic",
+    "MixinClassicMobLogic",
     "MixinCoinPilesTileEntity",
     "MixinCrakePedestalObjective",
     "MixinItemQuantityHelper",
     "MixinLodestoneObjective",
+    "MixinPlayerSnapshotDump",
+    "MixinPlayerVaultStats",
     "MixinRunner",
-    "MixinClassicMobLogic",
     "MixinSpiritEntity",
     "MixinStatsCollector",
     "MixinTrinketItem",
     "MixinVaultAltarIngredientsConfig",
-    "MixinVaultBlockOre"
+    "MixinVaultBlockOre",
+    "MixinVaultForgeRequestMessage"
   ],
   "client": [],
   "minVersion": "0.8"

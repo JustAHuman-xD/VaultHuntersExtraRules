@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
+import iskallia.vault.init.ModConfigs;
 import iskallia.vault.init.ModGameRules;
 import iskallia.vault.world.VaultLoot;
 import lv.id.bonne.vaulthuntersextrarules.command.ExtraRulesCommand;
@@ -84,6 +85,11 @@ public class VaultHuntersExtraRules
         ALLOW_CHARM_SWAP = register("vaultExtraAllowCharmSwapWhilePause",
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false), Locality.VAULT);
+
+        MAX_PLAYER_LEVEL = register("vaultExtraMaxPlayerLevel",
+            GameRules.Category.MISC,
+            GameRules.IntegerValue.create(ModConfigs.LEVELS_META.getMaxLevel()),
+            Locality.SERVER);
 
         // Register Vault Hunters rules to locality
 
@@ -230,6 +236,11 @@ public class VaultHuntersExtraRules
      * The GameRule that allows users to swap charms in first room.
      */
     public static GameRules.Key<GameRules.BooleanValue> ALLOW_CHARM_SWAP;
+
+    /**
+     * The GameRule that allows to set maximal level.
+     */
+    public static GameRules.Key<GameRules.IntegerValue> MAX_PLAYER_LEVEL;
 
     /**
      * Map of game rule id to key.

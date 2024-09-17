@@ -1,5 +1,7 @@
 package lv.id.bonne.vaulthuntersextrarules.util;
 
+import org.jetbrains.annotations.Nullable;
+
 import iskallia.vault.core.vault.ClientVaults;
 import iskallia.vault.core.vault.Vault;
 import iskallia.vault.world.data.ServerVaults;
@@ -7,11 +9,14 @@ import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
 import lv.id.bonne.vaulthuntersextrarules.data.WorldSettings;
 import lv.id.bonne.vaulthuntersextrarules.data.storage.PlayerSettings;
 import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
+import net.minecraftforge.server.ServerLifecycleHooks;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -135,6 +140,34 @@ public class GameRuleHelper
             case PLAYER -> getRule(ruleKey, player.getLevel(), player.getUUID());
             default -> getRule(ruleKey, player.getLevel());
         };
+    }
+
+
+    /**
+     * Helper method to simplify obtaining GameRule values.<br/> Handles localized game rules.<br/>
+     *
+     * @param ruleKey Key of the GameRule you would like to access
+     * @param playerUUID The player who is performing the event
+     * @return The GameRule value wrapper
+     */
+    public static <T extends GameRules.Value<T>> T getRule(GameRules.Key<T> ruleKey, UUID playerUUID)
+    {
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+
+        if (server == null)
+        {
+            if (Minecraft.getInstance().player == null)
+            {
+                VaultHuntersExtraRules.LOGGER.warn("Could not detect player instance.");
+                return Minecraft.getInstance().level.getGameRules().getRule(ruleKey);
+            }
+
+            return GameRuleHelper.getRule(ruleKey, Minecraft.getInstance().player);
+        }
+        else
+        {
+            return GameRuleHelper.getRule(ruleKey, server.overworld(), playerUUID);
+        }
     }
 
 
