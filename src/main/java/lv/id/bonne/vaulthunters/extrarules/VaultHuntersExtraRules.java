@@ -1,4 +1,4 @@
-package lv.id.bonne.vaulthuntersextrarules;
+package lv.id.bonne.vaulthunters.extrarules;
 
 
 import com.mojang.datafixers.util.Pair;
@@ -10,9 +10,9 @@ import java.util.Map;
 import iskallia.vault.init.ModConfigs;
 import iskallia.vault.init.ModGameRules;
 import iskallia.vault.world.VaultLoot;
-import lv.id.bonne.vaulthuntersextrarules.command.ExtraRulesCommand;
-import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
-import lv.id.bonne.vaulthuntersextrarules.gamerule.VaultExperienceRule;
+import lv.id.bonne.vaulthunters.extrarules.command.ExtraRulesCommand;
+import lv.id.bonne.vaulthunters.extrarules.gamerule.Locality;
+import lv.id.bonne.vaulthunters.extrarules.gamerule.VaultExperienceRule;
 import net.minecraft.world.level.GameRules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;

@@ -4,7 +4,7 @@
 //
 
 
-package lv.id.bonne.vaulthuntersextrarules.mixin;
+package lv.id.bonne.vaulthunters.extrarules.mixin;
 
 
 import com.llamalad7.mixinextras.sugar.Local;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import iskallia.vault.entity.entity.SpiritEntity;
 import iskallia.vault.init.ModGameRules;
 import iskallia.vault.world.VaultMode;
-import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import lv.id.bonne.vaulthunters.extrarules.util.GameRuleHelper;
 import net.minecraft.server.level.ServerPlayer;
 
 

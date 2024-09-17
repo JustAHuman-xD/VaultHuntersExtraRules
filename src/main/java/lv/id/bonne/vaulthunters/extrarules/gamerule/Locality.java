@@ -1,4 +1,4 @@
-package lv.id.bonne.vaulthuntersextrarules.gamerule;
+package lv.id.bonne.vaulthunters.extrarules.gamerule;
 
 
 /**

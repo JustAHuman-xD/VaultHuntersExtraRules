@@ -1,5 +1,5 @@
 {
-  "package": "lv.id.bonne.vaulthuntersextrarules.mixin",
+  "package": "lv.id.bonne.vaulthunters.extrarules.mixin",
   "required": true,
   "refmap": "mixins.vault_hunters_extra_rules.refmap.json",
   "compatibilityLevel": "JAVA_17",

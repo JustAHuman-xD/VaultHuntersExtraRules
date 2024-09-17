@@ -1,14 +1,14 @@
-package lv.id.bonne.vaulthuntersextrarules.util;
+package lv.id.bonne.vaulthunters.extrarules.util;
 
 import org.jetbrains.annotations.Nullable;
 
 import iskallia.vault.core.vault.ClientVaults;
 import iskallia.vault.core.vault.Vault;
 import iskallia.vault.world.data.ServerVaults;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import lv.id.bonne.vaulthuntersextrarules.data.WorldSettings;
-import lv.id.bonne.vaulthuntersextrarules.data.storage.PlayerSettings;
-import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
+import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthunters.extrarules.data.WorldSettings;
+import lv.id.bonne.vaulthunters.extrarules.data.storage.PlayerSettings;
+import lv.id.bonne.vaulthunters.extrarules.gamerule.Locality;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;

@@ -1,7 +1,7 @@
-package lv.id.bonne.vaulthuntersextrarules.data.storage;
+package lv.id.bonne.vaulthunters.extrarules.data.storage;
 
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import lv.id.bonne.vaulthuntersextrarules.mixin.InvokerGameRulesValue;
+import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthunters.extrarules.mixin.InvokerGameRulesValue;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.saveddata.SavedData;

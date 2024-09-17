@@ -4,7 +4,7 @@
 //
 
 
-package lv.id.bonne.vaulthuntersextrarules.mixin;
+package lv.id.bonne.vaulthunters.extrarules.mixin;
 
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,8 +18,8 @@ import iskallia.vault.core.vault.time.TickTimer;
 import iskallia.vault.core.world.storage.VirtualWorld;
 import iskallia.vault.init.ModItems;
 import iskallia.vault.world.data.ServerVaults;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthunters.extrarules.util.GameRuleHelper;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 

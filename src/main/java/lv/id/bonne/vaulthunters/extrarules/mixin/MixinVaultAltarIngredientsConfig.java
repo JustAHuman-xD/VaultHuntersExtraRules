@@ -4,7 +4,7 @@
 //
 
 
-package lv.id.bonne.vaulthuntersextrarules.mixin;
+package lv.id.bonne.vaulthunters.extrarules.mixin;
 
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import iskallia.vault.config.altar.VaultAltarIngredientsConfig;
 import iskallia.vault.init.ModGameRules;
 import iskallia.vault.world.VaultCrystalMode;
-import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import lv.id.bonne.vaulthunters.extrarules.util.GameRuleHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 

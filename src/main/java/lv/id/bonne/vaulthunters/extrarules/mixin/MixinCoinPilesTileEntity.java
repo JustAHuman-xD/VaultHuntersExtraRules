@@ -4,15 +4,15 @@
 //
 
 
-package lv.id.bonne.vaulthuntersextrarules.mixin;
+package lv.id.bonne.vaulthunters.extrarules.mixin;
 
 
 import iskallia.vault.block.entity.CoinPilesTileEntity;
 import iskallia.vault.core.data.key.LootTableKey;
 import iskallia.vault.core.event.common.CoinStacksGenerationEvent;
 import iskallia.vault.core.world.loot.generator.LootTableGenerator;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthunters.extrarules.util.GameRuleHelper;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

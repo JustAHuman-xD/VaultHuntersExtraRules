@@ -4,15 +4,15 @@
 //
 
 
-package lv.id.bonne.vaulthuntersextrarules.mixin;
+package lv.id.bonne.vaulthunters.extrarules.mixin;
 
 
 import iskallia.vault.core.event.common.ListenerJoinEvent;
 import iskallia.vault.core.vault.Vault;
 import iskallia.vault.core.vault.stat.StatsCollector;
 import iskallia.vault.core.world.storage.VirtualWorld;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthunters.extrarules.util.GameRuleHelper;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

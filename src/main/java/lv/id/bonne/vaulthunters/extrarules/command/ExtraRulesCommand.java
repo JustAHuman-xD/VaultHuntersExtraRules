@@ -1,13 +1,13 @@
-package lv.id.bonne.vaulthuntersextrarules.command;
+package lv.id.bonne.vaulthunters.extrarules.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import lv.id.bonne.vaulthuntersextrarules.data.WorldSettings;
-import lv.id.bonne.vaulthuntersextrarules.data.storage.PlayerSettings;
-import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
+import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthunters.extrarules.data.WorldSettings;
+import lv.id.bonne.vaulthunters.extrarules.data.storage.PlayerSettings;
+import lv.id.bonne.vaulthunters.extrarules.gamerule.Locality;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TextComponent;

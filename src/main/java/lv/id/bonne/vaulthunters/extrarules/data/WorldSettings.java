@@ -1,8 +1,8 @@
-package lv.id.bonne.vaulthuntersextrarules.data;
+package lv.id.bonne.vaulthunters.extrarules.data;
 
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import lv.id.bonne.vaulthuntersextrarules.data.storage.PlayerSettings;
-import lv.id.bonne.vaulthuntersextrarules.gamerule.Locality;
+import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthunters.extrarules.data.storage.PlayerSettings;
+import lv.id.bonne.vaulthunters.extrarules.gamerule.Locality;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.GameRules;

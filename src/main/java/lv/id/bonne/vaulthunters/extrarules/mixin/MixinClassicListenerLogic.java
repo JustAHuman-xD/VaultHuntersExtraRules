@@ -4,7 +4,7 @@
 //
 
 
-package lv.id.bonne.vaulthuntersextrarules.mixin;
+package lv.id.bonne.vaulthunters.extrarules.mixin;
 
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +24,7 @@ import iskallia.vault.core.vault.player.ClassicListenersLogic;
 import iskallia.vault.core.vault.player.Listener;
 import iskallia.vault.core.world.storage.VirtualWorld;
 import iskallia.vault.init.ModGameRules;
-import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import lv.id.bonne.vaulthunters.extrarules.util.GameRuleHelper;
 import net.minecraft.world.entity.player.Player;
 
 

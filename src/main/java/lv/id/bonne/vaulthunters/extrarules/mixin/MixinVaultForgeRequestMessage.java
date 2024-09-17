@@ -4,7 +4,7 @@
 //
 
 
-package lv.id.bonne.vaulthuntersextrarules.mixin;
+package lv.id.bonne.vaulthunters.extrarules.mixin;
 
 
 import com.llamalad7.mixinextras.sugar.Local;
@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import iskallia.vault.config.VaultLevelsConfig;
 import iskallia.vault.network.message.VaultForgeRequestCraftMessage;
-import lv.id.bonne.vaulthuntersextrarules.VaultHuntersExtraRules;
-import lv.id.bonne.vaulthuntersextrarules.util.GameRuleHelper;
+import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
+import lv.id.bonne.vaulthunters.extrarules.util.GameRuleHelper;
 import net.minecraft.server.level.ServerPlayer;
 
 

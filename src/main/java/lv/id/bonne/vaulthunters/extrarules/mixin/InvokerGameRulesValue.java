@@ -1,4 +1,4 @@
-package lv.id.bonne.vaulthuntersextrarules.mixin;
+package lv.id.bonne.vaulthunters.extrarules.mixin;
 
 import net.minecraft.world.level.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
