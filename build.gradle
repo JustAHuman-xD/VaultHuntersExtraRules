@@ -14,6 +14,7 @@ buildscript {
         }
     }
     dependencies {
+        classpath "com.github.johnrengelman:shadow:8.1.1"
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -21,11 +22,13 @@ buildscript {
 //Gradle Plugins
 plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id "com.matthewprenger.cursegradle" version "1.4.0"
     id 'java'
     id 'idea'
 }
 
+apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -136,6 +139,10 @@ dependencies {
     // mixin
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
+    // Mixin extra
+    annotationProcessor 'io.github.llamalad7:mixinextras-common:0.4.1'
+    implementation fg.deobf("io.github.llamalad7:mixinextras-forge:0.4.1")
+
     // Curseforge mod dependencies
     implementation fg.deobf("curse.maven:vault-hunters-official-mod-458203:${vault_hunters_version}")
 
@@ -193,6 +200,29 @@ tasks.named('jar', Jar).configure {
 
     // This is the preferred method to reobfuscate your jar file
     //finalizedBy 'reobfJar'
+}
+
+
+tasks.named('shadowJar').configure {
+    archiveClassifier.set('')  // Remove the "-all" suffix to avoid renaming the final JAR
+
+    // Include only MixinExtras in the shaded JAR
+    dependencies {
+        include(dependency("io.github.llamalad7:mixinextras-forge"))
+    }
+
+    // Optionally relocate MixinExtras to avoid conflicts with other mods
+    relocate 'io.github.llamalad7.mixinextras', "${mod_group_id}.shaded.mixinextras"
+
+    // Avoid duplicating resources and merging service files (helpful for META-INF)
+    mergeServiceFiles()
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+reobf {
+    jar {
+        dependsOn shadowJar  // Ensure that reobfJar works with the output from shadowJar
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
