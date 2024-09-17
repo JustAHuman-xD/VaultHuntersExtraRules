@@ -14,7 +14,6 @@ buildscript {
         }
     }
     dependencies {
-        classpath "com.github.johnrengelman:shadow:8.1.1"
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -22,13 +21,11 @@ buildscript {
 //Gradle Plugins
 plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id "com.matthewprenger.cursegradle" version "1.4.0"
     id 'java'
     id 'idea'
 }
 
-apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -141,7 +138,9 @@ dependencies {
 
     // Mixin extra
     compileOnly(annotationProcessor 'io.github.llamalad7:mixinextras-common:0.4.1')
-    implementation fg.deobf("io.github.llamalad7:mixinextras-forge:0.4.1")
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.4.1")) {
+        jarJar.ranged(it, "[0.4.1,)")
+    }
 
     // Curseforge mod dependencies
     implementation fg.deobf("curse.maven:vault-hunters-official-mod-458203:${vault_hunters_version}")
@@ -202,26 +201,18 @@ tasks.named('jar', Jar).configure {
     //finalizedBy 'reobfJar'
 }
 
+tasks.named('jarJar', Jar).configure {
+    // Remove the '-all' suffix by setting the classifier to an empty string
+    archiveClassifier.set('')
 
-tasks.named('shadowJar').configure {
-    archiveClassifier.set('')  // Remove the "-all" suffix to avoid renaming the final JAR
-
-    // Include only MixinExtras in the shaded JAR
-    dependencies {
-        include(dependency("io.github.llamalad7:mixinextras-forge"))
-    }
-
-    // Optionally relocate MixinExtras to avoid conflicts with other mods
-    relocate 'io.github.llamalad7.mixinextras', "${mod_group_id}.shaded.mixinextras"
-
-    // Avoid duplicating resources and merging service files (helpful for META-INF)
-    mergeServiceFiles()
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    // Optional: Set the base name or version if needed
+    archiveBaseName.set(mod_id)  // Replace 'mymod' with your mod's name
+    archiveVersion.set(mod_version)     // Set your mod's version
 }
 
 reobf {
     jar {
-        dependsOn shadowJar  // Ensure that reobfJar works with the output from shadowJar
+        dependsOn tasks.named('jarJar')  // Ensure reobfJar uses the jar task that includes MixinExtras
     }
 }
 
