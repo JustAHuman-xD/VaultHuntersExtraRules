@@ -2,7 +2,7 @@
   "package": "lv.id.bonne.vaulthuntersextrarules.mixin",
   "required": true,
   "refmap": "mixins.vault_hunters_extra_rules.refmap.json",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "InvokerGameRulesValue",
     "MixinCharmItem",
@@ -12,6 +12,7 @@
     "MixinItemQuantityHelper",
     "MixinLodestoneObjective",
     "MixinRunner",
+    "MixinClassicMobLogic",
     "MixinSpiritEntity",
     "MixinStatsCollector",
     "MixinTrinketItem",

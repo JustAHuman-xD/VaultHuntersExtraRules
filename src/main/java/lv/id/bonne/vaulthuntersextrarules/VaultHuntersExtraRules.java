@@ -47,10 +47,16 @@ public class VaultHuntersExtraRules
     {
         COIN_LOOT = register("vaultExtraCoinDrops",
             GameRules.Category.MISC,
-            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL), Locality.VAULT);
+            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL),
+            Locality.VAULT);
         COPIOUSLY_DROP = register("vaultExtraCopiouslyDropModifier",
             GameRules.Category.MISC,
-            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL), Locality.VAULT);
+            VaultLoot.GameRuleValue.create(VaultLoot.NORMAL),
+            Locality.VAULT);
+        SOUL_SHARD_DROP = register("vaultExtraSoulShardDrops",
+            GameRules.Category.MISC,
+            VaultExperienceRule.GameRuleValue.create(VaultExperienceRule.NORMAL),
+            Locality.SERVER);
 
         BONUS_XP = register("vaultExtraBonusExperienceModifier",
             GameRules.Category.MISC,
@@ -184,6 +190,11 @@ public class VaultHuntersExtraRules
      * The Copiously Drop GameRule.
      */
     public static GameRules.Key<VaultLoot.GameRuleValue> COPIOUSLY_DROP;
+
+    /**
+     * The Soul Shard Drop GameRule.
+     */
+    public static GameRules.Key<VaultExperienceRule.GameRuleValue> SOUL_SHARD_DROP;
 
     /**
      * The Vault Bonus Experience GameRule.
