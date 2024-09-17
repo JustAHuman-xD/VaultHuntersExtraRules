@@ -16,6 +16,13 @@ This mod works extremely well with "Arcade Mode".
   - NORMAL: 0.0x (default) - no change
   - PLENTY: 1.0x - increases the coin quantity by 1
   - EXTREME: 2.0x - increases the coin quantity by 2
+- vaultExtraSoulShardDrops (default: NORMAL) - the increase of soul shard drops from killing mobs.
+  - NONE: 0.0x - no soul shard drops
+  - TURTLE: 0.33x - 1/3 of the soul shard drops
+  - SLOW: 0.5x - 1/2 of the soul shard drops
+  - NORMAL: 1.0x (default) - no change
+  - PLENTY: 2.0x - 2x more soul shard drops
+  - EXTREME: 3.0x - 3x more soul shard drops
 - vaultExtraCompletionExperienceModifier (default: NORMAL) - the experience for completing the vault
   - NONE: 0.0x - no experience for completing the vault
   - TURTLE: 0.33x - 1/3 of the experience for completing the vault
@@ -45,6 +52,8 @@ This mod works extremely well with "Arcade Mode".
 - vaultExtraAllowCharmSwapWhilePause (default: false) - whether to allow player swap charms while he is in first room and timer is stopped
   - true - allows to swap charms in first room while timer in vault is stopped.
   - false (default) - no change
+- vaultExtraMaxPlayerLevel (default: value from VaultLevelsConfig) - allows to change max vault level via gamerule.
+  - [number] - integer number. Allows any value, but going above 100 may require to adjust VaultLevelsConfig json to give XP increment for them. 
   
 ## Commands
 If `vaultExtraLocalizedGameRules` is set to `true`, you can use the following commands to change the game rules:
@@ -61,6 +70,7 @@ Admins can set local levels for each gamerule. It has 3 values:
 GameRules that are targeted by this feature are:
 - vaultExtraCopiouslyDropModifier - (default: VAULT)
 - vaultExtraCoinDrops - (default: VAULT)
+- vaultExtraSoulShardDrops - (default: SERVER)
 - vaultExtraCompletionExperienceModifier - (default: PLAYER)
 - vaultExtraBonusExperienceModifier - (default: PLAYER)
 - vaultExtraReusePedestals - (default: VAULT)
@@ -69,3 +79,4 @@ GameRules that are targeted by this feature are:
 - vaultExtraAllowFlaskUseWhilePause - (default: VAULT)
 - vaultExtraAllowTrinketSwapWhilePause - (default: VAULT)
 - vaultExtraAllowCharmSwapWhilePause - (default: VAULT)
+- vaultExtraMaxPlayerLevel - (default: SERVER)
