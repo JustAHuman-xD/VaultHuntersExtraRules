@@ -86,11 +86,6 @@ public class VaultHuntersExtraRules
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false), Locality.VAULT);
 
-        MAX_PLAYER_LEVEL = register("vaultExtraMaxPlayerLevel",
-            GameRules.Category.MISC,
-            GameRules.IntegerValue.create(ModConfigs.LEVELS_META.getMaxLevel()),
-            Locality.SERVER);
-
         // Register Vault Hunters rules to locality
 
         event.enqueueWork(() ->
@@ -111,6 +106,12 @@ public class VaultHuntersExtraRules
             registerLocality(ModGameRules.MODE,
                 GameRules.GAME_RULE_TYPES.get(ModGameRules.MODE),
                 true,
+                Locality.SERVER);
+
+            // Get max level after few ticks
+            MAX_PLAYER_LEVEL = register("vaultExtraMaxPlayerLevel",
+                GameRules.Category.MISC,
+                GameRules.IntegerValue.create(ModConfigs.LEVELS_META.getMaxLevel()),
                 Locality.SERVER);
         });
     }
