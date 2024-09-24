@@ -9,7 +9,6 @@ import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
 import lv.id.bonne.vaulthunters.extrarules.data.WorldSettings;
 import lv.id.bonne.vaulthunters.extrarules.data.storage.PlayerSettings;
 import lv.id.bonne.vaulthunters.extrarules.gamerule.Locality;
-import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
@@ -150,24 +149,11 @@ public class GameRuleHelper
      * @param playerUUID The player who is performing the event
      * @return The GameRule value wrapper
      */
+    @Nullable
     public static <T extends GameRules.Value<T>> T getRule(GameRules.Key<T> ruleKey, UUID playerUUID)
     {
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-
-        if (server == null)
-        {
-            if (Minecraft.getInstance().player == null)
-            {
-                VaultHuntersExtraRules.LOGGER.warn("Could not detect player instance.");
-                return Minecraft.getInstance().level.getGameRules().getRule(ruleKey);
-            }
-
-            return GameRuleHelper.getRule(ruleKey, Minecraft.getInstance().player);
-        }
-        else
-        {
-            return GameRuleHelper.getRule(ruleKey, server.overworld(), playerUUID);
-        }
+        return server == null ? null : GameRuleHelper.getRule(ruleKey, server.overworld(), playerUUID);
     }
 
 

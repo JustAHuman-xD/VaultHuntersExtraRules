@@ -19,6 +19,7 @@ import iskallia.vault.config.VaultLevelsConfig;
 import iskallia.vault.skill.PlayerVaultStats;
 import lv.id.bonne.vaulthunters.extrarules.VaultHuntersExtraRules;
 import lv.id.bonne.vaulthunters.extrarules.util.GameRuleHelper;
+import net.minecraft.world.level.GameRules;
 
 
 /**
@@ -45,7 +46,10 @@ public class MixinPlayerVaultStats
         at = @At(value = "INVOKE", target = "Liskallia/vault/config/VaultLevelsConfig;getMaxLevel()I"))
     private int getExpNeededToNextLevelFromGameRule(VaultLevelsConfig instance)
     {
-        return GameRuleHelper.getRule(VaultHuntersExtraRules.MAX_PLAYER_LEVEL, uuid).get();
+        GameRules.IntegerValue rule =
+            GameRuleHelper.getRule(VaultHuntersExtraRules.MAX_PLAYER_LEVEL, uuid);
+
+        return rule != null ? rule.get() : instance.getMaxLevel();
     }
 
 
@@ -58,7 +62,10 @@ public class MixinPlayerVaultStats
         at = @At(value = "INVOKE", target = "Liskallia/vault/config/VaultLevelsConfig;getMaxLevel()I"))
     private int setVaultLevelFromGameRule(VaultLevelsConfig instance)
     {
-        return GameRuleHelper.getRule(VaultHuntersExtraRules.MAX_PLAYER_LEVEL, uuid).get();
+        GameRules.IntegerValue rule =
+            GameRuleHelper.getRule(VaultHuntersExtraRules.MAX_PLAYER_LEVEL, uuid);
+
+        return rule != null ? rule.get() : instance.getMaxLevel();
     }
 
 
@@ -71,6 +78,9 @@ public class MixinPlayerVaultStats
         at = @At(value = "INVOKE", target = "Liskallia/vault/config/VaultLevelsConfig;getMaxLevel()I"))
     private int addVaultExpFromGameRule(VaultLevelsConfig instance)
     {
-        return GameRuleHelper.getRule(VaultHuntersExtraRules.MAX_PLAYER_LEVEL, uuid).get();
+        GameRules.IntegerValue rule =
+            GameRuleHelper.getRule(VaultHuntersExtraRules.MAX_PLAYER_LEVEL, uuid);
+
+        return rule != null ? rule.get() : instance.getMaxLevel();
     }
 }
