@@ -54,6 +54,12 @@ This mod works extremely well with "Arcade Mode".
   - false (default) - no change
 - vaultExtraMaxPlayerLevel (default: value from VaultLevelsConfig) - allows to change max vault level via gamerule.
   - [number] - integer number. Allows any value, but going above 100 may require to adjust VaultLevelsConfig json to give XP increment for them. 
+- vaultExtraSpiritSpawnLocation (default: default) - allows to change where spirits spawns via gamerule.
+  - DEFAULT - uses vault hunter basic logic: try player bed, if not then try to find a *random* spawn point for player.
+  - PORTAL - if player bed is not available, then use vault portal location.
+  - ALWAYS_PORTAL - always use vault portal location.
+  - WORLD_SPAWN - if player bed is not available, then use world spawn location point.
+  - ALWAYS_WORLD_SPAWN - always use world spawn location point.
   
 ## Commands
 If `vaultExtraLocalizedGameRules` is set to `true`, you can use the following commands to change the game rules:
@@ -80,3 +86,4 @@ GameRules that are targeted by this feature are:
 - vaultExtraAllowTrinketSwapWhilePause - (default: VAULT)
 - vaultExtraAllowCharmSwapWhilePause - (default: VAULT)
 - vaultExtraMaxPlayerLevel - (default: SERVER)
+- vaultExtraSpiritSpawnLocation - (default: SERVER)

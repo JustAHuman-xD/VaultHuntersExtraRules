@@ -12,6 +12,7 @@ import iskallia.vault.init.ModGameRules;
 import iskallia.vault.world.VaultLoot;
 import lv.id.bonne.vaulthunters.extrarules.command.ExtraRulesCommand;
 import lv.id.bonne.vaulthunters.extrarules.gamerule.Locality;
+import lv.id.bonne.vaulthunters.extrarules.gamerule.SpawnPointRule;
 import lv.id.bonne.vaulthunters.extrarules.gamerule.VaultExperienceRule;
 import net.minecraft.world.level.GameRules;
 import net.minecraftforge.common.MinecraftForge;
@@ -85,6 +86,10 @@ public class VaultHuntersExtraRules
         ALLOW_CHARM_SWAP = register("vaultExtraAllowCharmSwapWhilePause",
             GameRules.Category.MISC,
             GameRules.BooleanValue.create(false), Locality.VAULT);
+
+        SPIRIT_SPAWN_LOCATION = register("vaultExtraSpiritSpawnLocation",
+            GameRules.Category.MISC,
+            SpawnPointRule.GameRuleValue.create(SpawnPointRule.DEFAULT), Locality.SERVER);
 
         // Register Vault Hunters rules to locality
 
@@ -242,6 +247,11 @@ public class VaultHuntersExtraRules
      * The GameRule that allows to set maximal level.
      */
     public static GameRules.Key<GameRules.IntegerValue> MAX_PLAYER_LEVEL;
+
+    /**
+     * The GameRule that allows to change where spirits are spawned.
+     */
+    public static GameRules.Key<SpawnPointRule.GameRuleValue> SPIRIT_SPAWN_LOCATION;
 
     /**
      * Map of game rule id to key.
