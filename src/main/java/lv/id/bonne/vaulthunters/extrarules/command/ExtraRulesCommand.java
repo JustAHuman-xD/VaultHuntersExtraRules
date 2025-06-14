@@ -22,32 +22,30 @@ import java.util.Optional;
 /**
  * This class adds extra rules command for clients
  */
-public class ExtraRulesCommand
-{
+public class ExtraRulesCommand {
     /**
      * Registers the command.
      *
      * @param dispatcher The command dispatcher.
      */
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher)
-    {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         LiteralArgumentBuilder<CommandSourceStack> baseLiteral = Commands.literal("extra_rules");
         LiteralArgumentBuilder<CommandSourceStack> set = Commands.literal("set");
 
         LiteralArgumentBuilder<CommandSourceStack> localAllowed =
-            Commands.literal("local_allowed").requires(stack -> stack.hasPermission(2));
+                Commands.literal("local_allowed").requires(stack -> stack.hasPermission(2));
 
         VaultHuntersExtraRules.EXTRA_GAME_RULES.forEach((key, pair) ->
         {
             GameRules.Type<?> type = pair.getFirst();
 
             set.then(Commands.literal(key.getId()).executes(ctx -> queryRule(ctx.getSource(), key)).
-                then(type.createArgument("value").executes(ctx -> setRule(ctx, key, type))).
-                then(Commands.literal("default").executes(ctx -> defaultRule(ctx, key))));
+                    then(type.createArgument("value").executes(ctx -> setRule(ctx, key, type))).
+                    then(Commands.literal("default").executes(ctx -> defaultRule(ctx, key))));
 
             localAllowed.then(Commands.literal(key.getId()).executes(ctx -> queryAllowed(ctx.getSource(), key)).
-                then(Commands.argument("value", EnumArgument.enumArgument(Locality.class)).
-                    executes(ctx -> setAllowed(ctx, key))));
+                    then(Commands.argument("value", EnumArgument.enumArgument(Locality.class)).
+                            executes(ctx -> setAllowed(ctx, key))));
         });
 
         dispatcher.register(baseLiteral.then(set).then(localAllowed));
@@ -56,12 +54,12 @@ public class ExtraRulesCommand
 
     /**
      * Sets the allowed value.
-     * @param ctx The command context.
+     *
+     * @param ctx     The command context.
      * @param ruleKey The rule key.
      * @return The command result.
      */
-    private static int setAllowed(CommandContext<CommandSourceStack> ctx, GameRules.Key<?> ruleKey)
-    {
+    private static int setAllowed(CommandContext<CommandSourceStack> ctx, GameRules.Key<?> ruleKey) {
         CommandSourceStack stack = ctx.getSource();
         WorldSettings settings = WorldSettings.get(stack.getLevel());
 
@@ -77,13 +75,13 @@ public class ExtraRulesCommand
 
     /**
      * Queries the allowed value.
-     * @param stack The command source stack.
+     *
+     * @param stack   The command source stack.
      * @param ruleKey The rule key.
      * @return The command result.
      * @throws CommandSyntaxException
      */
-    private static int queryAllowed(CommandSourceStack stack, GameRules.Key<?> ruleKey) throws CommandSyntaxException
-    {
+    private static int queryAllowed(CommandSourceStack stack, GameRules.Key<?> ruleKey) throws CommandSyntaxException {
         WorldSettings settings = WorldSettings.get(stack.getLevel());
 
         Locality locality = settings.getGameRuleLocality(ruleKey);
@@ -96,27 +94,25 @@ public class ExtraRulesCommand
 
     /**
      * Sets the rule.
-     * @param ctx The command context.
-     * @param ruleKey The rule key.
+     *
+     * @param ctx      The command context.
+     * @param ruleKey  The rule key.
      * @param ruleType The rule type.
+     * @param <T>      The type of the rule.
      * @return The command result.
-     * @param <T> The type of the rule.
      * @throws CommandSyntaxException
      */
     static <T extends GameRules.Value<T>> int setRule(CommandContext<CommandSourceStack> ctx,
-        GameRules.Key<T> ruleKey,
-        GameRules.Type<?> ruleType) throws CommandSyntaxException
-    {
+                                                      GameRules.Key<T> ruleKey,
+                                                      GameRules.Type<?> ruleType) throws CommandSyntaxException {
         CommandSourceStack stack = ctx.getSource();
 
-        if (WorldSettings.get(stack.getLevel()).getGameRuleLocality(ruleKey) == Locality.SERVER)
-        {
+        if (WorldSettings.get(stack.getLevel()).getGameRuleLocality(ruleKey) == Locality.SERVER) {
             stack.sendFailure(new TextComponent("Per-player configuration is not enabled for this gamerule!"));
             return 0;
         }
 
-        if (!stack.getLevel().getGameRules().getRule(VaultHuntersExtraRules.LOCALIZED_GAMERULES).get())
-        {
+        if (!stack.getLevel().getGameRules().getRule(VaultHuntersExtraRules.LOCALIZED_GAMERULES).get()) {
             stack.sendFailure(new TextComponent("vaultExtraLocalizedGameRules is not enabled on this server!"));
             return 0;
         }
@@ -127,18 +123,17 @@ public class ExtraRulesCommand
 
         Optional<T> tOptional = playerSettings.get(ruleKey);
 
-        if (tOptional.isPresent())
-        {
+        if (tOptional.isPresent()) {
             tOptional.get().setFromArgument(ctx, "value");
             stack.sendSuccess(new TranslatableComponent("commands.gamerule.set",
-                ruleKey.getId(),
-                tOptional.get().toString()), true);
+                    ruleKey.getId(),
+                    tOptional.get().toString()), true);
             // trigger save
             settings.setDirty();
 
             VaultHuntersExtraRules.LOGGER.info("GameRule " + ruleKey.getId() + " for " +
-                player.getDisplayName().getString() +
-                " changed.");
+                    player.getDisplayName().getString() +
+                    " changed.");
 
             return tOptional.get().getCommandResult();
         }
@@ -151,8 +146,8 @@ public class ExtraRulesCommand
         stack.sendSuccess(new TranslatableComponent("commands.gamerule.set", ruleKey.getId(), value.toString()), true);
 
         VaultHuntersExtraRules.LOGGER.info("GameRule " + ruleKey.getId() + " for " +
-            player.getDisplayName().getString() +
-            " changed to " + value.serialize());
+                player.getDisplayName().getString() +
+                " changed to " + value.serialize());
 
         return value.getCommandResult();
     }
@@ -160,15 +155,15 @@ public class ExtraRulesCommand
 
     /**
      * Sets the default rule.
-     * @param ctx The command context.
+     *
+     * @param ctx     The command context.
      * @param ruleKey The rule key.
+     * @param <T>     The type of the rule.
      * @return The command result.
-     * @param <T> The type of the rule.
      * @throws CommandSyntaxException
      */
     static <T extends GameRules.Value<T>> int defaultRule(CommandContext<CommandSourceStack> ctx,
-        GameRules.Key<T> ruleKey) throws CommandSyntaxException
-    {
+                                                          GameRules.Key<T> ruleKey) throws CommandSyntaxException {
         CommandSourceStack stack = ctx.getSource();
 
         WorldSettings settings = WorldSettings.get(stack.getLevel());
@@ -178,8 +173,8 @@ public class ExtraRulesCommand
         playerSettings.remove(ruleKey);
 
         VaultHuntersExtraRules.LOGGER.info("GameRule " + ruleKey.getId() + " for " +
-            player.getDisplayName().getString() +
-            " changed to default.");
+                player.getDisplayName().getString() +
+                " changed to default.");
 
         stack.sendSuccess(new TranslatableComponent("commands.gamerule.set", ruleKey.getId(), "default"), true);
         return 0;
@@ -188,23 +183,21 @@ public class ExtraRulesCommand
 
     /**
      * Queries the rule.
-     * @param stack The command source stack.
+     *
+     * @param stack   The command source stack.
      * @param ruleKey The rule key.
+     * @param <T>     The type of the rule.
      * @return The command result.
-     * @param <T> The type of the rule.
      * @throws CommandSyntaxException
      */
     static <T extends GameRules.Value<T>> int queryRule(CommandSourceStack stack, GameRules.Key<T> ruleKey)
-        throws CommandSyntaxException
-    {
-        if (WorldSettings.get(stack.getLevel()).getGameRuleLocality(ruleKey) == Locality.SERVER)
-        {
+            throws CommandSyntaxException {
+        if (WorldSettings.get(stack.getLevel()).getGameRuleLocality(ruleKey) == Locality.SERVER) {
             stack.sendFailure(new TextComponent("Per-player configuration is not enabled for this gamerule!"));
             return 0;
         }
 
-        if (!stack.getLevel().getGameRules().getRule(VaultHuntersExtraRules.LOCALIZED_GAMERULES).get())
-        {
+        if (!stack.getLevel().getGameRules().getRule(VaultHuntersExtraRules.LOCALIZED_GAMERULES).get()) {
             stack.sendFailure(new TextComponent("vaultExtraLocalizedGameRules is not enabled on this server!"));
             return 0;
         }
@@ -214,11 +207,10 @@ public class ExtraRulesCommand
         PlayerSettings playerSettings = settings.getPlayerSettings(player.getUUID());
 
         Optional<T> tOptional = playerSettings.get(ruleKey);
-        if (tOptional.isPresent())
-        {
+        if (tOptional.isPresent()) {
             stack.sendSuccess(new TranslatableComponent("commands.gamerule.query",
-                ruleKey.getId(),
-                tOptional.get().toString()), false);
+                    ruleKey.getId(),
+                    tOptional.get().toString()), false);
             return tOptional.get().getCommandResult();
         }
 

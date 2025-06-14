@@ -16,8 +16,7 @@ import java.util.Optional;
 /**
  * This class is used to store player settings.
  */
-public class PlayerSettings
-{
+public class PlayerSettings {
     /**
      * Map of game rules.
      */
@@ -31,21 +30,21 @@ public class PlayerSettings
 
     /**
      * Constructor for PlayerSettings.
+     *
      * @param parent Parent SavedData.
      */
-    public PlayerSettings(SavedData parent)
-    {
+    public PlayerSettings(SavedData parent) {
         this.parent = parent;
     }
 
 
     /**
      * Constructor for PlayerSettings.
+     *
      * @param parent Parent SavedData.
-     * @param tag CompoundTag to deserialize.
+     * @param tag    CompoundTag to deserialize.
      */
-    public PlayerSettings(SavedData parent, CompoundTag tag)
-    {
+    public PlayerSettings(SavedData parent, CompoundTag tag) {
         this.parent = parent;
         this.deserialize(tag);
     }
@@ -53,18 +52,15 @@ public class PlayerSettings
 
     /**
      * Gets the game rule.
+     *
      * @param ruleKey The rule key.
+     * @param <T>     The type of the game rule.
      * @return The game rule.
-     * @param <T> The type of the game rule.
      */
-    public <T extends GameRules.Value<T>> Optional<T> get(GameRules.Key<T> ruleKey)
-    {
-        if (this.gameRules.containsKey(ruleKey))
-        {
+    public <T extends GameRules.Value<T>> Optional<T> get(GameRules.Key<T> ruleKey) {
+        if (this.gameRules.containsKey(ruleKey)) {
             return Optional.of((T) (this.gameRules.get(ruleKey)));
-        }
-        else
-        {
+        } else {
             return Optional.empty();
         }
     }
@@ -72,14 +68,14 @@ public class PlayerSettings
 
     /**
      * Puts the game rule.
-     * @param ruleKey The rule key.
+     *
+     * @param ruleKey   The rule key.
      * @param ruleValue The rule value.
+     * @param <T>       The type of the game rule.
      * @return The game rule.
-     * @param <T> The type of the game rule.
      */
     @Nullable
-    public <T extends GameRules.Value<T>> T put(GameRules.Key<T> ruleKey, GameRules.Value<T> ruleValue)
-    {
+    public <T extends GameRules.Value<T>> T put(GameRules.Key<T> ruleKey, GameRules.Value<T> ruleValue) {
         parent.setDirty();
         return (T) gameRules.put(ruleKey, ruleValue);
     }
@@ -87,13 +83,13 @@ public class PlayerSettings
 
     /**
      * Removes the game rule.
+     *
      * @param ruleKey The rule key.
+     * @param <T>     The type of the game rule.
      * @return The game rule.
-     * @param <T> The type of the game rule.
      */
     @Nullable
-    public <T extends GameRules.Value<T>> T remove(GameRules.Key<T> ruleKey)
-    {
+    public <T extends GameRules.Value<T>> T remove(GameRules.Key<T> ruleKey) {
         parent.setDirty();
         return (T) gameRules.remove(ruleKey);
     }
@@ -101,11 +97,11 @@ public class PlayerSettings
 
     /**
      * Serializes the game rules.
+     *
      * @return The serialized game rules.
      */
     @Nonnull
-    public CompoundTag serialize()
-    {
+    public CompoundTag serialize() {
         CompoundTag tag = new CompoundTag();
         gameRules.forEach((key, value) -> tag.putString(key.getId(), value.serialize()));
         return tag;
@@ -114,14 +110,13 @@ public class PlayerSettings
 
     /**
      * Deserializes the game rules.
+     *
      * @param tag The tag to deserialize.
      */
-    public void deserialize(CompoundTag tag)
-    {
+    public void deserialize(CompoundTag tag) {
         tag.getAllKeys().forEach(gameRuleKeyId ->
         {
-            if (VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.containsKey(gameRuleKeyId))
-            {
+            if (VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.containsKey(gameRuleKeyId)) {
                 GameRules.Key<?> key = VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.get(gameRuleKeyId);
                 GameRules.Value<?> value = VaultHuntersExtraRules.EXTRA_GAME_RULES.get(key).getFirst().createRule();
                 ((InvokerGameRulesValue) value).invokeDeserialize(tag.getString(gameRuleKeyId));

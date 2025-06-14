@@ -20,8 +20,7 @@ import java.util.function.Function;
 /**
  * This class is used to store world settings.
  */
-public class WorldSettings extends SavedData
-{
+public class WorldSettings extends SavedData {
     /**
      * Map of player settings.
      */
@@ -43,8 +42,7 @@ public class WorldSettings extends SavedData
      *
      * @return Default WorldSettings instance
      */
-    public static WorldSettings create()
-    {
+    public static WorldSettings create() {
         return new WorldSettings();
     }
 
@@ -57,8 +55,7 @@ public class WorldSettings extends SavedData
      */
     @Override
     @NotNull
-    public CompoundTag save(CompoundTag tag)
-    {
+    public CompoundTag save(CompoundTag tag) {
         tag.put("playerSettings", serializePlayerSettings());
         tag.put("gameRuleLocality", serializeGameRuleLocalitySettings());
         return tag;
@@ -71,17 +68,13 @@ public class WorldSettings extends SavedData
      * @param level Preferably a ServerLevel, but not strictly required.
      * @return A populated WorldSettings instance
      */
-    public static WorldSettings get(Level level)
-    {
+    public static WorldSettings get(Level level) {
         if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER &&
-            level instanceof ServerLevel serverLevel)
-        {
+                level instanceof ServerLevel serverLevel) {
             return serverLevel.getServer().overworld().getDataStorage().computeIfAbsent(WorldSettings.load(serverLevel),
-                WorldSettings::create,
-                "vault_hunters_extra_rules_WorldSettings");
-        }
-        else
-        {
+                    WorldSettings::create,
+                    "vault_hunters_extra_rules_WorldSettings");
+        } else {
             return client_settings; // Should hopefully not be returned 🤞
         }
     }
@@ -91,34 +84,30 @@ public class WorldSettings extends SavedData
      * Generates a function for loading settings from NBT
      *
      * @param level Preferably the ServerLevel we load our data onto. In most cases the overworld since it is always
-     * partially loaded.
+     *              partially loaded.
      * @return Function for loading settings from NBT
      */
-    public static Function<CompoundTag, WorldSettings> load(ServerLevel level)
-    {
+    public static Function<CompoundTag, WorldSettings> load(ServerLevel level) {
         return (tag) ->
         {
             WorldSettings data = create();
 
-            if (tag.contains("playerSettings"))
-            {
+            if (tag.contains("playerSettings")) {
                 CompoundTag playersCompound = tag.getCompound("playerSettings");
                 playersCompound.getAllKeys().forEach(playerUUID ->
                 {
                     data.playerSettings.put(UUID.fromString(playerUUID),
-                        new PlayerSettings(data, playersCompound.getCompound(playerUUID)));
+                            new PlayerSettings(data, playersCompound.getCompound(playerUUID)));
                 });
             }
 
-            if (tag.contains("gameRuleLocality"))
-            {
+            if (tag.contains("gameRuleLocality")) {
                 CompoundTag gameRulesCompound = tag.getCompound("gameRuleLocality");
                 gameRulesCompound.getAllKeys().forEach(keyName ->
                 {
-                    if (VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.containsKey(keyName))
-                    {
+                    if (VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.containsKey(keyName)) {
                         data.setGameRuleLocality(VaultHuntersExtraRules.GAME_RULE_ID_TO_KEY.get(keyName),
-                            Locality.valueOf(gameRulesCompound.getString(keyName)));
+                                Locality.valueOf(gameRulesCompound.getString(keyName)));
                     }
                 });
             }
@@ -133,8 +122,7 @@ public class WorldSettings extends SavedData
      *
      * @return A compound tag
      */
-    public CompoundTag serializePlayerSettings()
-    {
+    public CompoundTag serializePlayerSettings() {
         CompoundTag tag = new CompoundTag();
         playerSettings.forEach((key, value) -> tag.put(key.toString(), value.serialize()));
         return tag;
@@ -146,8 +134,7 @@ public class WorldSettings extends SavedData
      *
      * @return A compound tag
      */
-    public CompoundTag serializeGameRuleLocalitySettings()
-    {
+    public CompoundTag serializeGameRuleLocalitySettings() {
         CompoundTag tag = new CompoundTag();
         gameRuleLocality.forEach(((key, locality) -> tag.putString(key.getId(), locality.name())));
         return tag;
@@ -160,8 +147,7 @@ public class WorldSettings extends SavedData
      * @param uuid UUID of the player you would like to access
      * @return PlayerSettings object
      */
-    public PlayerSettings getPlayerSettings(UUID uuid)
-    {
+    public PlayerSettings getPlayerSettings(UUID uuid) {
         return this.playerSettings.computeIfAbsent(uuid, uid -> new PlayerSettings(this));
     }
 
@@ -172,8 +158,7 @@ public class WorldSettings extends SavedData
      * @param ruleKey Target gamerule
      * @return The gamerule's locality
      */
-    public Locality getGameRuleLocality(GameRules.Key<?> ruleKey)
-    {
+    public Locality getGameRuleLocality(GameRules.Key<?> ruleKey) {
         return this.gameRuleLocality.getOrDefault(ruleKey, VaultHuntersExtraRules.getDefaultLocality(ruleKey));
     }
 
@@ -181,11 +166,10 @@ public class WorldSettings extends SavedData
     /**
      * Set Gamerule locality and mark as dirty
      *
-     * @param ruleKey Target gamerule
+     * @param ruleKey  Target gamerule
      * @param locality Locality
      */
-    public void setGameRuleLocality(GameRules.Key<?> ruleKey, Locality locality)
-    {
+    public void setGameRuleLocality(GameRules.Key<?> ruleKey, Locality locality) {
         this.gameRuleLocality.put(ruleKey, locality);
         this.setDirty();
     }

@@ -27,19 +27,17 @@ import java.util.List;
  * This mixin injects into CoinPilesTileEntity#generateLoot to increase amount of loot being dropped when coin pile is broken.
  */
 @Mixin(CoinPilesTileEntity.class)
-public class MixinCoinPilesTileEntity
-{
+public class MixinCoinPilesTileEntity {
     @Inject(method = "generateLoot",
-        at = @At(value = "INVOKE", target = "Liskallia/vault/core/world/loot/generator/LootTableGenerator;generate(Liskallia/vault/core/random/RandomSource;)V"),
-        locals = LocalCapture.CAPTURE_FAILSOFT,
-        remap = false)
+            at = @At(value = "INVOKE", target = "Liskallia/vault/core/world/loot/generator/LootTableGenerator;generate(Liskallia/vault/core/random/RandomSource;)V"),
+            locals = LocalCapture.CAPTURE_FAILSOFT,
+            remap = false)
     private void increaseLootQuantity(ServerPlayer player,
-        CallbackInfoReturnable<List> cir,
-        List loot,
-        CoinStacksGenerationEvent.Data data,
-        LootTableKey key,
-        LootTableGenerator generator)
-    {
+                                      CallbackInfoReturnable<List> cir,
+                                      List loot,
+                                      CoinStacksGenerationEvent.Data data,
+                                      LootTableKey key,
+                                      LootTableGenerator generator) {
         generator.itemQuantity = GameRuleHelper.getRule(VaultHuntersExtraRules.COIN_LOOT, player).get().getMultiplier() - 1;
     }
 }

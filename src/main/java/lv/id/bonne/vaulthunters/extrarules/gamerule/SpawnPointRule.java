@@ -3,22 +3,21 @@ package lv.id.bonne.vaulthunters.extrarules.gamerule;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.brigadier.context.CommandContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import java.util.Map;
-
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.GameRules;
 import net.minecraftforge.server.command.EnumArgument;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 
 /**
  * The rules for spawn
  */
-public enum SpawnPointRule implements StringRepresentable
-{
+public enum SpawnPointRule implements StringRepresentable {
     DEFAULT("default"),
     PORTAL("portal"),
     ALWAYS_PORTAL("always_portal"),
@@ -28,28 +27,24 @@ public enum SpawnPointRule implements StringRepresentable
     private final String name;
 
 
-    SpawnPointRule(String name)
-    {
+    SpawnPointRule(String name) {
         this.name = name;
     }
 
 
     @Override
     @NotNull
-    public String getSerializedName()
-    {
+    public String getSerializedName() {
         return name;
     }
 
 
     private static final Map<String, SpawnPointRule> NAME_VALUES;
 
-    static
-    {
+    static {
         ImmutableMap.Builder<String, SpawnPointRule> builder = new ImmutableMap.Builder<>();
 
-        for (SpawnPointRule value : SpawnPointRule.values())
-        {
+        for (SpawnPointRule value : SpawnPointRule.values()) {
             builder.put(value.getSerializedName(), value);
         }
 
@@ -63,35 +58,30 @@ public enum SpawnPointRule implements StringRepresentable
      * @param name the name
      * @return the spawn point rule
      */
-    public static SpawnPointRule fromName(String name)
-    {
+    public static SpawnPointRule fromName(String name) {
         return NAME_VALUES.getOrDefault(name, DEFAULT);
     }
 
 
-    public static class GameRuleValue extends GameRules.Value<SpawnPointRule.GameRuleValue>
-    {
+    public static class GameRuleValue extends GameRules.Value<SpawnPointRule.GameRuleValue> {
 
         private SpawnPointRule mode = SpawnPointRule.DEFAULT;
 
 
-        public GameRuleValue(GameRules.Type<SpawnPointRule.GameRuleValue> type)
-        {
+        public GameRuleValue(GameRules.Type<SpawnPointRule.GameRuleValue> type) {
             super(type);
         }
 
 
-        public GameRuleValue(GameRules.Type<SpawnPointRule.GameRuleValue> type, SpawnPointRule mode)
-        {
+        public GameRuleValue(GameRules.Type<SpawnPointRule.GameRuleValue> type, SpawnPointRule mode) {
             super(type);
             this.mode = mode;
         }
 
 
-        public static GameRules.Type<SpawnPointRule.GameRuleValue> create(SpawnPointRule defaultValue)
-        {
+        public static GameRules.Type<SpawnPointRule.GameRuleValue> create(SpawnPointRule defaultValue) {
             return new GameRules.Type<>(() -> EnumArgument.enumArgument(SpawnPointRule.class),
-                type -> new GameRuleValue(type, defaultValue), (s, v) ->
+                    type -> new GameRuleValue(type, defaultValue), (s, v) ->
             {
             }, (v, k, t) ->
             {
@@ -100,60 +90,52 @@ public enum SpawnPointRule implements StringRepresentable
 
 
         @Override
-        protected void updateFromArgument(CommandContext<CommandSourceStack> context, @NotNull String paramName)
-        {
+        protected void updateFromArgument(CommandContext<CommandSourceStack> context, @NotNull String paramName) {
             this.mode = context.getArgument(paramName, SpawnPointRule.class);
         }
 
 
         @Override
-        protected void deserialize(@NotNull String value)
-        {
+        protected void deserialize(@NotNull String value) {
             this.mode = SpawnPointRule.fromName(value);
         }
 
 
         @Override
         @NotNull
-        public String serialize()
-        {
+        public String serialize() {
             return this.mode.getSerializedName();
         }
 
 
         @Override
-        public int getCommandResult()
-        {
+        public int getCommandResult() {
             return this.mode.getSerializedName().hashCode();
         }
 
 
         @Override
         @NotNull
-        protected SpawnPointRule.GameRuleValue getSelf()
-        {
+        protected SpawnPointRule.GameRuleValue getSelf() {
             return this;
         }
 
 
         @Override
         @NotNull
-        protected SpawnPointRule.GameRuleValue copy()
-        {
+        protected SpawnPointRule.GameRuleValue copy() {
             return new SpawnPointRule.GameRuleValue(this.type, this.mode);
         }
 
 
         @Override
-        public void setFrom(SpawnPointRule.GameRuleValue value, @Nullable MinecraftServer pServer)
-        {
+        public void setFrom(SpawnPointRule.GameRuleValue value, @Nullable MinecraftServer pServer) {
             this.mode = value.mode;
             this.onChanged(pServer);
         }
 
 
-        public SpawnPointRule get()
-        {
+        public SpawnPointRule get() {
             return this.mode;
         }
     }
